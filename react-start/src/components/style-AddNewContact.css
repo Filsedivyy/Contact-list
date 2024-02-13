@@ -27,9 +27,21 @@ header {
 main {
     padding-left: 172px;
     padding-right: 172px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 h2 {
     margin-top: 32px;
     margin-bottom: 16px;
+}
+
+.create-new-contact {
+    margin-top: 8px;
+    height: 56px;
+    background-color: #5DD661;
+    color: white;
+    border-radius: 16px;
+    border: none;
 }
