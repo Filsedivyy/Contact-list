@@ -1,18 +1,20 @@
 import "./style-AddNewContact.css";
+import AddValueInput from "./AddValueInput";
 
 const AddNewContact = () => {
   return (
     <>
       <header>
         <h3>Přidat kontakt</h3>
-        <button>Zrušit</button>
+        <button id="cancel">Zrušit</button>
       </header>
       <main>
-        <h2>Přidat kontakt</h2>
-        <div className="inputContainer">
-          <p>Celé jméno</p>
-          <input type="text" placeholder="Celé jméno" />
-        </div>
+        <AddValueInput name="Celé jméno" />
+        <AddValueInput name="Email" />
+        <AddValueInput name="Telefon" />
+        <button className="create-new-contact" onClick={}>
+          Přidat kontakt
+        </button>
       </main>
     </>
   );
