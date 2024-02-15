@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.info-component {
+    width: 100%;
+    border-bottom: 1px solid #E3E3E3;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 16px;
+    display: flex;
+    justify-content: space-between;
+
+    .content {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+    }
+
+    content>img {
+        width: 24px;
+        height: 24px;
+    }
+
+    button {
+        border: none;
+        background-color: unset;
+        cursor: pointer;
+    }
+}

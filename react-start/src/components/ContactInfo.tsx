@@ -1,11 +1,16 @@
 import "./style-ContactInfo.css";
+import InfoComponent from "./InfoComponent";
 
-const ContactInfo = (/*fullName, email, phoneNum*/) => {
+const ContactInfo = ({
+  fullName = "John Doe",
+  emailValue = "test@seznam.cz",
+  phoneNum = "721955908",
+}) => {
   return (
     <div className="contact-info">
       <header>
         <div className="placeholder"></div>
-        <h2>Test</h2>
+        <h2>{fullName}</h2>
         <div className="button-container">
           <button>
             <img src="./delete.svg" alt="" />
@@ -16,14 +21,9 @@ const ContactInfo = (/*fullName, email, phoneNum*/) => {
         </div>
       </header>
       <main>
-        <h1>Test</h1>
-        <div className="item">
-          <img src="./email.svg" alt="" />
-          <div className="info-container">
-            <h5>Email</h5>
-            <p>test</p>
-          </div>
-        </div>
+        <h1>{fullName}</h1>
+        <InfoComponent img={"email.svg"} type={"Email"} value={emailValue} />
+        <InfoComponent img={"phone.svg"} type={"Telefon"} value={phoneNum} />
       </main>
     </div>
   );
