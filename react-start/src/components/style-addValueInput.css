@@ -15,12 +15,17 @@ p {
     font-size: 14px;
 }
 
-.warning.active {
-    opacity: 1;
+.error-icon {
+    width: 20px;
+    height: 20px;
 }
 
-.warning {
-    opacity: 0;
+.warning.active {
+    opacity: 1;
+    color: red;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 input {
