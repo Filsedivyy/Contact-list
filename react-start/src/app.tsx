@@ -1,9 +1,7 @@
-import ContactInfo from "./components/ContactInfo";
 import "./style.css";
-import InfoComponent from "./components/InfoComponent";
-
+import LandingPageComponent from "./components/LandingPage";
 const App = () => {
-  return <ContactInfo />;
+  return <LandingPageComponent />;
 };
 
 export default App;
