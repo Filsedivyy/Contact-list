@@ -3,16 +3,10 @@ import AddNewContact from "./components/AddNewContact";
 import ContactInfo from "./components/ContactInfo";
 import "./style.css";
 import { useState } from "react";
+import LandingPageComponent from "./components/LandingPage";
 
 const App = () => {
-  const [contacts, updateContacts] = useState([
-    {
-      id: 1,
-      fullName: "Filip Šedivý",
-      email: "fsedivy2000@seznam.cz",
-      phoneNum: "721955908",
-    },
-  ]);
+  const [contacts, updateContacts] = useState([]);
 
   const [activeContactID, setActiveContactID] = useState(-1);
 
@@ -28,6 +22,8 @@ const App = () => {
       />
       {activeContactID >= 0 ? (
         <ContactInfo contact={contacts.find((c) => c.id == activeContactID)} />
+      ) : activeContactID === -1 ? (
+        <LandingPageComponent setActiveContactID={setActiveContactID} />
       ) : (
         <AddNewContact addContact={addContact} />
       )}

@@ -1,11 +1,11 @@
 import "./style-LandingPage.css";
 
-const LandingPageComponent = () => {
+const LandingPageComponent = ({ setActiveContactID }) => {
   return (
     <div className="landing-page">
       <h2>Žádné kontakty</h2>
       <p>V listu momentálně nejsou žádné kontakty. Přidejte nějaký.</p>
-      <button>Přidat kontakt</button>
+      <button onClick={() => setActiveContactID(-2)}>Přidat kontakt</button>
     </div>
   );
 };
