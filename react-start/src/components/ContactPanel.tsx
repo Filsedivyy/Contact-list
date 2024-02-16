@@ -1,12 +1,11 @@
 import "./style-ContactPanel.css";
 import { useState } from "react";
 
-const ContactPanel = ({ contacts }) => {
+const ContactPanel = ({ contacts, setActiveContactID }) => {
   const [filterInputValue, setInputValue] = useState("");
 
   function handleChange(event) {
     setInputValue(event.target.value);
-    //console.log(event.target.value);
   }
 
   return (
@@ -40,7 +39,12 @@ const ContactPanel = ({ contacts }) => {
                 .includes(filterInputValue.toLowerCase())
           )
           .map((oneContact) => (
-            <li key={oneContact.id}>{oneContact.fullName}</li>
+            <li
+              onClick={() => setActiveContactID(oneContact.id)}
+              key={oneContact.id}
+            >
+              {oneContact.fullName}
+            </li>
           ))}
       </ul>
     </div>
