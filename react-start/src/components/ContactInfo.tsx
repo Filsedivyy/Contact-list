@@ -1,14 +1,14 @@
 import "./style-ContactInfo.css";
 import InfoComponent from "./InfoComponent";
 
-const ContactInfo = ({ contact }) => {
+const ContactInfo = ({ contact, setActiveContactID }) => {
   return (
     <div className="contact-info">
       <header>
         <div className="placeholder"></div>
         <h2>{contact.fullName}</h2>
         <div className="button-container">
-          <button>
+          <button onClick={() => setActiveContactID(-2)}>
             <img src="./delete.svg" alt="" />
           </button>
           <button>

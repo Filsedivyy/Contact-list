@@ -21,7 +21,10 @@ const App = () => {
         setActiveContactID={setActiveContactID}
       />
       {activeContactID >= 0 ? (
-        <ContactInfo contact={contacts.find((c) => c.id == activeContactID)} />
+        <ContactInfo
+          setActiveContactID={setActiveContactID}
+          contact={contacts.find((c) => c.id == activeContactID)}
+        />
       ) : activeContactID === -1 ? (
         <LandingPageComponent setActiveContactID={setActiveContactID} />
       ) : (

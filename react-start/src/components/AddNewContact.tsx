@@ -70,7 +70,7 @@ const AddNewContact = ({ addContact }) => {
             setPhone(e.target.value);
             setPhoneError("");
           }}
-          name="telefon"
+          name="Telefon"
           error={phoneError}
         />
         <button className="create-new-contact" onClick={handleClick}>
