@@ -60,6 +60,7 @@ const App = () => {
             contacts={contacts}
             editContact={editedContact}
             setActiveContactID={setActiveContactID}
+            setEditing={setEditing}
           />
         ))}
 

@@ -8,6 +8,7 @@ const EditComponent = ({
   editContact,
   contacts,
   setActiveContactID,
+  setEditing,
 }) => {
   const [fullName, setFullName] = useState(contact.fullName);
   const [email, setEmail] = useState(contact.email);
@@ -18,7 +19,7 @@ const EditComponent = ({
       console.log(
         "Nelze vytvořit kontakt, protože některá z hodnot je prázdná."
       );
-      return; // Pokud je některá z hodnot prázdná, funkce skončí a kontakt se nevytvoří.
+      return;
     }
 
     const editedContact = {
@@ -36,7 +37,9 @@ const EditComponent = ({
     filteredContactsList.push(editedContact);
 
     editContact(filteredContactsList);
-    setActiveContactID(contacts.length === 0 ? 0 : contacts[0].id);
+    setActiveContactID(-1);
+    setEditing(false);
+    /* fixnout, přidat funkci která zmení state editace na false */
   }
 
   return (
