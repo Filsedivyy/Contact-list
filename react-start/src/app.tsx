@@ -9,14 +9,11 @@ import EditComponent from "./components/EditComponent";
 const App = () => {
   const [contacts, updateContacts] = useState([]);
 
-  const [activeContactID, setActiveContactID] = useState(-1);
+  const [editing, setEditing] = useState(false);
+  const [activeContactID, setActiveContactID] = useState(0);
 
   function addContact(newContact) {
     updateContacts([...contacts, newContact]);
-  }
-
-  function cancelButton(idecko) {
-    setActiveContactID(contacts.length ? contacts[idecko].id : -1);
   }
 
   function deleteContact(idecko) {
@@ -33,29 +30,37 @@ const App = () => {
     }
   }
 
-  function editContact(idecko) {
-    const contactToEdit = contacts.find((contact) => contact.id === idecko);
-    setActiveContactID(-3);
-  }
-
   return (
     <div className="add-contact-page">
       <ContactPanel
         contacts={contacts}
         setActiveContactID={setActiveContactID}
       />
-      {activeContactID >= 0 ? (
-        <ContactInfo
-          contact={contacts.find((c) => c.id === activeContactID)}
-          deleteContact={deleteContact}
-          editContact={editContact}
-        />
-      ) : activeContactID === -1 ? (
+
+      {contacts.length == 0 && activeContactID >= 0 && (
         <LandingPageComponent setActiveContactID={setActiveContactID} />
-      ) : activeContactID === -3 ? (
-        <EditComponent cancelButton={cancelButton} />
-      ) : (
-        <AddNewContact addContact={addContact} cancelButton={cancelButton} />
+      )}
+
+      {contacts.length > 0 &&
+        activeContactID >= 0 &&
+        (!editing ? (
+          <ContactInfo
+            contact={contacts.find((c) => c.id === activeContactID)}
+            deleteContact={deleteContact}
+            editContact={() => setEditing(true)}
+          />
+        ) : (
+          <EditComponent
+            contact={contacts.find((c) => c.id == activeContactID)}
+            cancel={() => setEditing(false)}
+          />
+        ))}
+
+      {activeContactID == -1 && (
+        <AddNewContact
+          addContact={addContact}
+          cancelButton={setActiveContactID}
+        />
       )}
     </div>
   );

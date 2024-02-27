@@ -1,11 +1,19 @@
 import "./style-EditInputComponent.css";
 
-const EditInputComponent = ({ type = "Celé jméno", value = "John Doe" }) => {
+const EditInputComponent = ({
+  onChange,
+  label = "Celé jméno",
+  value = "John Doe",
+}) => {
   return (
     <div className="input-component">
-      <p>{type}</p>
+      <p>{label}</p>
       <div className="container">
-        <input type="text" placeholder={value} />
+        <input
+          onChange={(e) => onChange(e.target.value)}
+          type="text"
+          value={value}
+        />
         <button>
           <img src="delete-content.svg" alt="" />
         </button>

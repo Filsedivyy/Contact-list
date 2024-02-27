@@ -14,7 +14,7 @@ const ContactPanel = ({ contacts, setActiveContactID }) => {
         <div className="wrapper">
           <div className="placeholder"></div>
           <h3>Kontakty</h3>
-          <button onClick={() => setActiveContactID(-2)}>
+          <button onClick={() => setActiveContactID(-1)}>
             <img src="./icon.svg" alt="" />
           </button>
         </div>
