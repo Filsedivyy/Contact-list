@@ -5,7 +5,7 @@
 }
 
 .contact-panel {
-    width: 400px;
+    min-width: 400px;
     height: 100vh;
     border-right: 1px solid #E3E3E3;
 
