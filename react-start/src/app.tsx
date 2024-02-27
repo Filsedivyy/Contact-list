@@ -59,7 +59,9 @@ const App = () => {
       {activeContactID == -1 && (
         <AddNewContact
           addContact={addContact}
-          cancelButton={setActiveContactID}
+          cancel={() =>
+            setActiveContactID(contacts.length === 0 ? 0 : contacts[0].id)
+          }
         />
       )}
     </div>

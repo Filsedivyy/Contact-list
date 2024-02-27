@@ -2,7 +2,7 @@ import "./style-AddNewContact.css";
 import AddValueInput from "./AddValueInput";
 import { useState } from "react";
 
-const AddNewContact = ({ addContact, cancelButton }) => {
+const AddNewContact = ({ addContact, cancel }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -41,7 +41,7 @@ const AddNewContact = ({ addContact, cancelButton }) => {
     <div className="add-new-contact">
       <header>
         <h3>Přidat kontakt</h3>
-        <button id="cancel" onClick={() => cancelButton(0)}>
+        <button id="cancel" onClick={cancel}>
           Zrušit
         </button>
       </header>
