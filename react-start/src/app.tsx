@@ -16,6 +16,10 @@ const App = () => {
     updateContacts([...contacts, newContact]);
   }
 
+  function editedContact(contact) {
+    updateContacts(contact);
+  }
+
   function deleteContact(idecko) {
     const updatedContacts = contacts.filter(
       (oneContact) => oneContact.id !== idecko
@@ -53,6 +57,9 @@ const App = () => {
           <EditComponent
             contact={contacts.find((c) => c.id == activeContactID)}
             cancel={() => setEditing(false)}
+            contacts={contacts}
+            editContact={editedContact}
+            setActiveContactID={setActiveContactID}
           />
         ))}
 
