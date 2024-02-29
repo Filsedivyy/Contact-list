@@ -1,6 +1,7 @@
 import ContactPanel from "./components/ContactPanel";
 import AddNewContact from "./components/AddNewContact";
 import ContactInfo from "./components/ContactInfo";
+import "./style.css";
 import { useState } from "react";
 import LandingPageComponent from "./components/LandingPage";
 import EditComponent from "./components/EditComponent";
