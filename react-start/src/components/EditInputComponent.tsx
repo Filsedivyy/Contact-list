@@ -13,7 +13,7 @@ const EditInputComponent: React.FC<EditInputProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState(value);
   function clearInput() {
-    setInputValue("");
+    onChange("");
   }
 
   return (
