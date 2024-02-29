@@ -34,7 +34,7 @@ const App = () => {
   }
 
   return (
-    <div className="ContactList">
+    <div className="flex flex-row">
       <ContactPanel
         contacts={contacts}
         setActiveContactID={setActiveContactID}

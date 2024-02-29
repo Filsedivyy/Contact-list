@@ -12,9 +12,18 @@ body {
     flex-direction: column;
 }
 
-.ContactList {
-    display: flex;
-    flex-direction: row
+
+h2 {
+
+    font-size: 16px;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+p {
+    font-size: 14px;
 }
 
 @tailwind base;
