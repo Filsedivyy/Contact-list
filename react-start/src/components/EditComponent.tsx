@@ -1,7 +1,15 @@
 import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
 
-const EditComponent = ({
+interface EditComponentProps {
+  contact: any;
+  cancel: any;
+  editContact: any;
+  contacts: any;
+  setActiveContactID: any;
+  setEditing: any;
+}
+const EditComponent: React.FC<EditComponentProps> = ({
   contact,
   cancel,
   editContact,

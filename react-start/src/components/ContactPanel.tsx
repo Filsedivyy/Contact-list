@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-const ContactPanel = ({ contacts, setActiveContactID }) => {
+interface ContactPanelProps {
+  contacts: any;
+  setActiveContactID: any;
+}
+
+const ContactPanel: React.FC<ContactPanelProps> = ({
+  contacts,
+  setActiveContactID,
+}) => {
   const [filterInputValue, setInputValue] = useState("");
 
   function handleChange(event) {

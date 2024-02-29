@@ -1,4 +1,10 @@
-const EditInputComponent = ({
+interface AddValueInputProps {
+  onChange: any;
+  label: string;
+  value: any;
+}
+
+const EditInputComponent: React.FC<AddValueInputProps> = ({
   onChange,
   label = "Celé jméno",
   value = "John Doe",

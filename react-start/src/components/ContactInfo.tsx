@@ -1,6 +1,16 @@
 import InfoComponent from "./InfoComponent";
 
-const ContactInfo = ({ contact, deleteContact, editContact }) => {
+interface ContactInfoProps {
+  contact: any;
+  deleteContact: any;
+  editContact: any;
+}
+
+const ContactInfo: React.FC<ContactInfoProps> = ({
+  contact,
+  deleteContact,
+  editContact,
+}) => {
   return (
     <div className="flex flex-col items-center w-full">
       <header className="w-full flex items-center justify-center h-[48px] border-b border-[#E3E3E3] py-[4px]">

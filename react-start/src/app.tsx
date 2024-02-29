@@ -34,7 +34,7 @@ const App = () => {
   }
 
   return (
-    <div className="add-contact-page">
+    <div className="ContactList">
       <ContactPanel
         contacts={contacts}
         setActiveContactID={setActiveContactID}

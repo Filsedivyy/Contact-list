@@ -1,9 +1,15 @@
-// import "./style-AddNewContact.css";
 import AddValueInput from "./AddValueInput";
 import { useState } from "react";
-// import "../index.css";
 
-const AddNewContact = ({ addContact, cancel }) => {
+interface AddNewContactProps {
+  addContact: any;
+  cancel: any;
+}
+
+const AddNewContact: React.FC<AddNewContactProps> = ({
+  addContact,
+  cancel,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");

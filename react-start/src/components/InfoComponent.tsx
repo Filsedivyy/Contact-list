@@ -1,4 +1,10 @@
-const InfoComponent = ({ img, type, value }) => {
+interface InfoComponentProps {
+  img: any;
+  type: string;
+  value: any;
+}
+
+const InfoComponent: React.FC<InfoComponentProps> = ({ img, type, value }) => {
   return (
     <div className="w-full border-b border-solid border-[#E3E3E3] flex items-center justify-between py-[14px] pl-[16px]">
       <div className="flex gap-[14px] items-center">

@@ -12,8 +12,9 @@ body {
     flex-direction: column;
 }
 
-.add-contact-page {
+.ContactList {
     display: flex;
+    flex-direction: row
 }
 
 @tailwind base;
