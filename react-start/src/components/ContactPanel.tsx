@@ -1,22 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface ContactPanelProps {
   contacts: any;
   setActiveContactID: any;
+  ActiveContactID: number;
 }
 
 const ContactPanel: React.FC<ContactPanelProps> = ({
   contacts,
   setActiveContactID,
+  ActiveContactID,
 }) => {
   const [filterInputValue, setInputValue] = useState("");
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
   }
 
   return (
-    <div className=" relative h-screen min-w-[400px] border-r-2 border-gray-300">
+    <div className="relative h-screen min-w-[400px] border-r-2 border-gray-300">
       <header className="py-[4px] px-[8px] border-b-2 border-gray-300 flex justify-center items-center h-[47px]">
         <h3>Kontakty</h3>
         <button
@@ -37,18 +39,22 @@ const ContactPanel: React.FC<ContactPanelProps> = ({
           placeholder="hledat"
         />
       </div>
-      <ul className="flex flex-col list-none ">
+      <ul className="flex flex-col list-none">
         {contacts
           .filter(
-            (oneContact) =>
+            (oneContact: { fullName: string }) =>
               filterInputValue.length === 0 ||
               oneContact.fullName
                 .toLowerCase()
                 .includes(filterInputValue.toLowerCase())
           )
-          .map((oneContact) => (
+          .map((oneContact: { id: number; fullName: string }) => (
             <li
-              className="border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px] hover:bg-[#daf6db] active:bg-[#228726]"
+              className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px] hover:bg-[#daf6db] cursor-pointer ${
+                ActiveContactID === oneContact.id
+                  ? "bg-[#5DD661] text-white hover:bg-[#5DD661] "
+                  : ""
+              }`}
               onClick={() => setActiveContactID(oneContact.id)}
               key={oneContact.id}
             >

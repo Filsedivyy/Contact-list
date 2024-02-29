@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface AddValueInputProps {
   onChange: any;
   label: string;
@@ -9,6 +11,11 @@ const EditInputComponent: React.FC<AddValueInputProps> = ({
   label = "Celé jméno",
   value = "John Doe",
 }) => {
+  const [inputValue, setInputValue] = useState(value);
+  function clearInput() {
+    setInputValue("");
+  }
+
   return (
     <div className="flex flex-col gap-[8px]">
       <p>{label}</p>
@@ -17,9 +24,12 @@ const EditInputComponent: React.FC<AddValueInputProps> = ({
           className="size-full text-[14px]"
           onChange={(e) => onChange(e.target.value)}
           type="text"
-          value={value}
+          value={inputValue}
         />
-        <button className="size-[40px] flex items-center justify-center p-[8px]">
+        <button
+          onClick={clearInput}
+          className="size-[40px] flex items-center justify-center p-[8px]"
+        >
           <img src="delete-content.svg" alt="" />
         </button>
       </div>

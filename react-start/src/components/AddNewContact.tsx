@@ -87,7 +87,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
           error={phoneError}
         />
         <button
-          className="mt-[8px] h-[56px] bg-green-500 text-white rounded-[16px] border-none "
+          className="mt-[8px] h-[56px] bg-[#5DD661] text-white rounded-[16px] border-none "
           onClick={handleClick}
         >
           Přidat kontakt

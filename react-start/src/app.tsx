@@ -38,6 +38,7 @@ const App = () => {
       <ContactPanel
         contacts={contacts}
         setActiveContactID={setActiveContactID}
+        ActiveContactID={activeContactID}
       />
 
       {contacts.length == 0 && activeContactID >= 0 && (
