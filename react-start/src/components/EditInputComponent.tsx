@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-interface AddValueInputProps {
+interface EditInputProps {
   onChange: any;
   label: string;
   value: any;
 }
 
-const EditInputComponent: React.FC<AddValueInputProps> = ({
+const EditInputComponent: React.FC<EditInputProps> = ({
   onChange,
   label = "Celé jméno",
   value = "John Doe",
@@ -24,7 +24,7 @@ const EditInputComponent: React.FC<AddValueInputProps> = ({
           className="size-full text-[14px]"
           onChange={(e) => onChange(e.target.value)}
           type="text"
-          value={inputValue}
+          value={value}
         />
         <button
           onClick={clearInput}

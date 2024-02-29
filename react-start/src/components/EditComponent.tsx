@@ -7,7 +7,6 @@ interface EditComponentProps {
   editContact: any;
   contacts: any;
   setActiveContactID: any;
-  activeContactID: number;
   setEditing: any;
 }
 const EditComponent: React.FC<EditComponentProps> = ({
@@ -15,9 +14,8 @@ const EditComponent: React.FC<EditComponentProps> = ({
   cancel,
   editContact,
   contacts,
-  setActiveContactID,
-  activeContactID,
   setEditing,
+  setActiveContactID,
 }) => {
   const [fullName, setFullName] = useState(contact.fullName);
   const [email, setEmail] = useState(contact.email);
@@ -25,6 +23,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
 
   function saveEdit() {
     if (fullName.length === 0 || email.length === 0 || phoneNum.length === 0) {
+      return;
     }
 
     const editedContact = {
@@ -33,7 +32,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
       email: email,
       phoneNum: phoneNum,
     };
-    console.log(editedContact);
 
     const filteredContactsList = contacts.filter(
       (oneContact) => oneContact.id !== contact.id
