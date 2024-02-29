@@ -1,6 +1,7 @@
-import "./style-AddNewContact.css";
+// import "./style-AddNewContact.css";
 import AddValueInput from "./AddValueInput";
 import { useState } from "react";
+// import "../index.css";
 
 const AddNewContact = ({ addContact, cancel }) => {
   const [name, setName] = useState("");
@@ -38,16 +39,20 @@ const AddNewContact = ({ addContact, cancel }) => {
   }
 
   return (
-    <div className="add-new-contact">
-      <header>
+    <div className="w-full flex flex-col ">
+      <header className="w-full h-[48px] border-b-2 border-gray-300 flex justify-center items-center">
         <h3>Přidat kontakt</h3>
-        <button id="cancel" onClick={cancel}>
+        <button
+          className="absolute right-[8px] top-[4px] w-[64px] h-[40px] cursor-pointer border-none bg-transparent"
+          id="cancel"
+          onClick={cancel}
+        >
           Zrušit
         </button>
       </header>
 
-      <main>
-        <h2>Přidat kontakt</h2>
+      <main className="px-[172px] flex flex-col gap-[16px]">
+        <h2 className="mt-[32px] mb-[16px]">Přidat kontakt</h2>
         <AddValueInput
           inputValue={name}
           onInputChange={(e) => {
@@ -75,7 +80,10 @@ const AddNewContact = ({ addContact, cancel }) => {
           name="Telefon"
           error={phoneError}
         />
-        <button className="create-new-contact" onClick={handleClick}>
+        <button
+          className="mt-[8px] h-[56px] bg-green-500 text-white rounded-[16px] border-none "
+          onClick={handleClick}
+        >
           Přidat kontakt
         </button>
       </main>

@@ -12,6 +12,9 @@ body {
     flex-direction: column;
 }
 
+.add-contact-page {
+    display: flex;
+}
 
 @tailwind base;
 @tailwind components;

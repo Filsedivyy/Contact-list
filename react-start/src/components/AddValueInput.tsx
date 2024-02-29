@@ -1,5 +1,4 @@
 import React from "react";
-import "./style-addValueInput.css";
 
 interface AddValueInputProps {
   name: string;
@@ -15,17 +14,18 @@ const AddValueInput: React.FC<AddValueInputProps> = ({
   name,
 }) => {
   return (
-    <div className="input-container">
-      <p>{name}</p>
+    <div className="w-full flex flex-col gap-[8px]">
+      <p className="text-[14px]">{name}</p>
       <input
+        className="h-[48px] px-[16px] py-[14px] rounded-[14px] border-[1px] border-solid border-rgb(227, 227, 227)"
         type="text"
         value={inputValue}
         onChange={onInputChange}
         placeholder={name}
       />
       {error && (
-        <p className={"warning active"}>
-          <img className="error-icon" src="error.svg"></img>
+        <p className="opacity-100 text-red-500 flex items-center gap-[8px]">
+          <img className="w-[20px] h-[20px]" src="error.svg"></img>
           {error}
         </p>
       )}
