@@ -39,7 +39,6 @@ const EditComponent = ({
     editContact(filteredContactsList);
     setActiveContactID(-1);
     setEditing(false);
-    /* fixnout, přidat funkci která zmení state editace na false */
   }
 
   return (
@@ -70,5 +69,7 @@ const EditComponent = ({
     </div>
   );
 };
+
+//dodělat errory u editu
 
 export default EditComponent;
