@@ -1,4 +1,3 @@
-import "./style-EditComponent.css";
 import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
 
@@ -16,10 +15,6 @@ const EditComponent = ({
 
   function saveEdit() {
     if (fullName.length === 0 || email.length === 0 || phoneNum.length === 0) {
-      console.log(
-        "Nelze vytvořit kontakt, protože některá z hodnot je prázdná."
-      );
-      return;
     }
 
     const editedContact = {
@@ -42,15 +37,18 @@ const EditComponent = ({
   }
 
   return (
-    <div className="edit-component">
-      <header>
+    <div className="w-full">
+      <header className="w-full h-[48px] border-b-[1px] border-solid border-[#E3E3E3] flex justify-center items-center ">
         <h3> Upravit kontakt</h3>
-        <button id="cancel" onClick={cancel}>
+        <button
+          className="absolute right-[8px] top-[4px] w-[64px] h-[40px]"
+          onClick={cancel}
+        >
           Zrušit
         </button>
       </header>
-      <main>
-        <h1>Upravit kontakt</h1>
+      <main className="px-[172px] pt-[32px] flex flex-col gap-[16px]">
+        <h1 className="mb-[16px]">Upravit kontakt</h1>
         <EditInputComponent
           label="Celé jméno"
           onChange={setFullName}
@@ -62,7 +60,10 @@ const EditComponent = ({
           onChange={setPhoneNum}
           value={phoneNum}
         />
-        <button className="save-changes" onClick={saveEdit}>
+        <button
+          className="mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
+          onClick={saveEdit}
+        >
           Uložit změny
         </button>
       </main>
