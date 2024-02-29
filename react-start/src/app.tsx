@@ -61,6 +61,7 @@ const App = () => {
             editContact={editedContact}
             setActiveContactID={setActiveContactID}
             setEditing={setEditing}
+            activeContactID={activeContactID}
           />
         ))}
 
