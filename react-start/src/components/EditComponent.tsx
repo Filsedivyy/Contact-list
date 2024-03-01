@@ -126,6 +126,4 @@ const EditComponent: React.FC<EditComponentProps> = ({
   );
 };
 
-//podmínka pro telefonní číslo > AddNewContact
-
 export default EditComponent;

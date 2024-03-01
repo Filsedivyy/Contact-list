@@ -10,7 +10,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
   addContact,
   cancel,
 }) => {
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -21,7 +21,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
   const phoneNumRegex = /^\d+$/;
 
   function handleClick() {
-    if (name.length == 0 || !name.trim().includes(" ")) {
+    if (fullName.length == 0 || !fullName.trim().includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
     }
     if (email.length == 0 || !email.includes("@")) {
@@ -31,8 +31,8 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
       setPhoneError("Zadejte tel. číslo");
     }
     if (
-      name.length == 0 ||
-      !name.trim().includes(" ") ||
+      fullName.length == 0 ||
+      !fullName.trim().includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
       phone.length == 0 ||
@@ -42,12 +42,12 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
     } else {
       const newContact = {
         id: Math.random(),
-        fullName: name.trim(),
+        fullName: fullName.trim(),
         email: email.trim(),
         phoneNum: phone.trim(),
       };
       addContact(newContact);
-      setName("");
+      setFullName("");
       setEmail("");
       setPhone("");
     }
@@ -69,9 +69,9 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
       <main className="px-[172px] flex flex-col gap-[16px]">
         <h2 className="mt-[32px] mb-[16px]">Přidat kontakt</h2>
         <AddValueInput
-          inputValue={name}
+          inputValue={fullName}
           onInputChange={(e) => {
-            setName(e.target.value);
+            setFullName(e.target.value);
             setNameError("");
           }}
           name="Celé jméno"

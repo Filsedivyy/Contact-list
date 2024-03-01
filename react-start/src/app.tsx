@@ -11,6 +11,18 @@ const App = () => {
   const [editing, setEditing] = useState(false);
   const [activeContactID, setActiveContactID] = useState(0);
 
+  /* UseContext
+  const [fullName, setFullName] = useState(contact.fullName);
+  const [email, setEmail] = useState(contact.email);
+  const [phoneNum, setPhoneNum] = useState(contact.phoneNum);
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
+
+  */
+
   function addContact(newContact) {
     updateContacts([...contacts, newContact]);
   }
