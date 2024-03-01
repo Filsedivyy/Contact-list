@@ -1,8 +1,9 @@
 interface EditInputProps {
   onInputChange: any;
   label: string;
-  value: any;
+  value: string;
   error: string;
+  clearInput: any;
 }
 
 const EditInputComponent: React.FC<EditInputProps> = ({
@@ -10,11 +11,8 @@ const EditInputComponent: React.FC<EditInputProps> = ({
   label = "Celé jméno",
   value = "John Doe",
   error,
+  clearInput,
 }) => {
-  /*function clearInput() {
-    onChange("");
-  }*/
-
   return (
     <div className="flex flex-col gap-[8px]">
       <p>{label}</p>
@@ -26,7 +24,9 @@ const EditInputComponent: React.FC<EditInputProps> = ({
           value={value}
         />
         <button
-          // onClick={clearInput}
+          onClick={() => {
+            clearInput();
+          }}
           className="size-[40px] flex items-center justify-center p-[8px]"
         >
           <img src="delete-content.svg" alt="" />

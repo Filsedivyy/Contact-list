@@ -84,6 +84,9 @@ const EditComponent: React.FC<EditComponentProps> = ({
           }}
           value={fullName}
           error={nameError}
+          clearInput={() => {
+            setFullName("");
+          }}
         />
         <EditInputComponent
           label="Email"
@@ -93,6 +96,9 @@ const EditComponent: React.FC<EditComponentProps> = ({
           }}
           value={email}
           error={emailError}
+          clearInput={() => {
+            setEmail("");
+          }}
         />
         <EditInputComponent
           label="Telefon"
@@ -102,6 +108,9 @@ const EditComponent: React.FC<EditComponentProps> = ({
           }}
           value={phoneNum}
           error={phoneError}
+          clearInput={() => {
+            setPhoneNum("");
+          }}
         />
         <button
           className="mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
@@ -114,6 +123,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
   );
 };
 
-//dodělat errory u editu
+//podmínka pro telefonní číslo > AddNewContact
 
 export default EditComponent;
