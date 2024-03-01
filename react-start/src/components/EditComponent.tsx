@@ -79,6 +79,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
   );
 };
 
-//dodělat errory u editu
+//dodělat errory u editu, focus input pole
 
 export default EditComponent;

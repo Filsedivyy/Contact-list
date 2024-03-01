@@ -11,7 +11,6 @@ const EditInputComponent: React.FC<EditInputProps> = ({
   label = "Celé jméno",
   value = "John Doe",
 }) => {
-  const [inputValue, setInputValue] = useState(value);
   function clearInput() {
     onChange("");
   }
@@ -21,7 +20,7 @@ const EditInputComponent: React.FC<EditInputProps> = ({
       <p>{label}</p>
       <div className="w-full h-[48px] rounded-[14px] border-[1px] border-solid border-[#E3E3E3] flex justify-between items-center py-[4px] pl-[16px] pr-[8px]">
         <input
-          className="size-full text-[14px]"
+          className="size-full text-[14px] focus: outline-none"
           onChange={(e) => onChange(e.target.value)}
           type="text"
           value={value}

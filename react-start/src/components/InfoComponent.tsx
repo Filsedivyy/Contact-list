@@ -12,7 +12,7 @@ const InfoComponent: React.FC<InfoComponentProps> = ({ img, type, value }) => {
 
   const handleCopy = () => {
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500); // Reset copied state after 1.5 seconds
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
