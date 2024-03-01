@@ -25,6 +25,8 @@ const EditComponent: React.FC<EditComponentProps> = ({
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
 
+  const phoneNumRegex = /^\d+$/;
+
   function saveEdit() {
     if (fullName.length == 0 || !fullName.includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
@@ -32,7 +34,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
     if (email.length === 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
     }
-    if (phoneNum.length === 0) {
+    if (phoneNum.length === 0 || !phoneNumRegex.test(phoneNum)) {
       setPhoneError("Zadejte telefonní číslo");
     }
     if (
@@ -40,7 +42,8 @@ const EditComponent: React.FC<EditComponentProps> = ({
       !fullName.includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
-      phoneNum.length == 0
+      phoneNum.length == 0 ||
+      !phoneNumRegex.test(phoneNum)
     ) {
       return;
     } else {
