@@ -2,7 +2,7 @@ import React from "react";
 
 interface AddValueInputProps {
   name: string;
-  error?: string;
+  error: string;
   inputValue: any;
   onInputChange: any;
 }
@@ -32,5 +32,5 @@ const AddValueInput: React.FC<AddValueInputProps> = ({
     </div>
   );
 };
-// dodělat focus input pole, aby byl zelený
+
 export default AddValueInput;

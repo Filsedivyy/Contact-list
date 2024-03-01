@@ -1,19 +1,19 @@
-import { useState } from "react";
-
 interface EditInputProps {
-  onChange: any;
+  onInputChange: any;
   label: string;
   value: any;
+  error: string;
 }
 
 const EditInputComponent: React.FC<EditInputProps> = ({
-  onChange,
+  onInputChange,
   label = "Celé jméno",
   value = "John Doe",
+  error,
 }) => {
-  function clearInput() {
+  /*function clearInput() {
     onChange("");
-  }
+  }*/
 
   return (
     <div className="flex flex-col gap-[8px]">
@@ -21,17 +21,23 @@ const EditInputComponent: React.FC<EditInputProps> = ({
       <div className="w-full h-[48px] rounded-[14px] border-[1px] border-solid border-[#E3E3E3] flex justify-between items-center py-[4px] pl-[16px] pr-[8px]">
         <input
           className="size-full text-[14px] focus: outline-none"
-          onChange={(e) => onChange(e.target.value)}
+          onChange={onInputChange}
           type="text"
           value={value}
         />
         <button
-          onClick={clearInput}
+          // onClick={clearInput}
           className="size-[40px] flex items-center justify-center p-[8px]"
         >
           <img src="delete-content.svg" alt="" />
         </button>
       </div>
+      {error && (
+        <p className="opacity-100 text-red-500 flex items-center gap-[6px]">
+          <img className="w-[20px] h-[20px]" src="error.svg"></img>
+          {error}
+        </p>
+      )}
     </div>
   );
 };

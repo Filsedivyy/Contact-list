@@ -52,7 +52,7 @@ const ContactPanel: React.FC<ContactPanelProps> = ({
             <li
               className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px] hover:bg-[#daf6db] cursor-pointer ${
                 ActiveContactID === oneContact.id
-                  ? "bg-[#5DD661] text-white hover:bg-[#5DD661] "
+                  ? "bg-[#5DD661] text-white hover:bg-[#2fb833] "
                   : ""
               }`}
               onClick={() => setActiveContactID(oneContact.id)}

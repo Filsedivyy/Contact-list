@@ -21,27 +21,45 @@ const EditComponent: React.FC<EditComponentProps> = ({
   const [email, setEmail] = useState(contact.email);
   const [phoneNum, setPhoneNum] = useState(contact.phoneNum);
 
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
   function saveEdit() {
-    if (fullName.length === 0 || email.length === 0 || phoneNum.length === 0) {
-      return;
+    if (fullName.length === 0) {
+      setNameError("Zadejte jméno kontaktu");
     }
+    if (email.length === 0 || !email.includes("@")) {
+      setEmailError("Zadejte email");
+    }
+    if (phoneNum.length === 0) {
+      setPhoneError("Zadejte telefonní číslo");
+    }
+    if (
+      fullName.length == 0 ||
+      email.length == 0 ||
+      !email.includes("@") ||
+      phoneNum.length == 0
+    ) {
+      return;
+    } else {
+      const editedContact = {
+        id: Math.random(),
+        fullName: fullName,
+        email: email,
+        phoneNum: phoneNum,
+      };
 
-    const editedContact = {
-      id: Math.random(),
-      fullName: fullName,
-      email: email,
-      phoneNum: phoneNum,
-    };
+      const filteredContactsList = contacts.filter(
+        (oneContact) => oneContact.id !== contact.id
+      );
 
-    const filteredContactsList = contacts.filter(
-      (oneContact) => oneContact.id !== contact.id
-    );
+      filteredContactsList.push(editedContact);
 
-    filteredContactsList.push(editedContact);
-
-    editContact(filteredContactsList);
-    setActiveContactID(editedContact.id);
-    setEditing(false);
+      editContact(filteredContactsList);
+      setActiveContactID(editedContact.id);
+      setEditing(false);
+    }
   }
 
   return (
@@ -59,14 +77,30 @@ const EditComponent: React.FC<EditComponentProps> = ({
         <h1 className="mb-[16px]">Upravit kontakt</h1>
         <EditInputComponent
           label="Celé jméno"
-          onChange={setFullName}
+          onInputChange={(e) => {
+            setFullName(e.target.value);
+            setNameError("");
+          }}
           value={fullName}
+          error={nameError}
         />
-        <EditInputComponent label="Email" onChange={setEmail} value={email} />
+        <EditInputComponent
+          label="Email"
+          onInputChange={(e) => {
+            setEmail(e.target.value);
+            setEmailError("");
+          }}
+          value={email}
+          error={emailError}
+        />
         <EditInputComponent
           label="Telefon"
-          onChange={setPhoneNum}
+          onInputChange={(e) => {
+            setPhoneNum(e.target.value);
+            setPhoneError("");
+          }}
           value={phoneNum}
+          error={phoneError}
         />
         <button
           className="mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
@@ -79,6 +113,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
   );
 };
 
-//dodělat errory u editu, focus input pole
+//dodělat errory u editu
 
 export default EditComponent;

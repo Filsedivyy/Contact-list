@@ -22,13 +22,18 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
     if (name.length == 0) {
       setNameError("Zadejte jméno kontaktu");
     }
-    if (email.length == 0) {
+    if (email.length == 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
     }
     if (phone.length == 0) {
       setPhoneError("Zadejte tel. číslo");
     }
-    if (name.length == 0 || email.length == 0 || phone.length == 0) {
+    if (
+      name.length == 0 ||
+      email.length == 0 ||
+      !email.includes("@") ||
+      phone.length == 0
+    ) {
       return;
     } else {
       const newContact = {
