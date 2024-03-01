@@ -26,7 +26,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
   const [phoneError, setPhoneError] = useState("");
 
   function saveEdit() {
-    if (fullName.length === 0) {
+    if (fullName.length == 0 || !fullName.includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
     }
     if (email.length === 0 || !email.includes("@")) {
@@ -37,6 +37,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
     }
     if (
       fullName.length == 0 ||
+      !fullName.includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
       phoneNum.length == 0
