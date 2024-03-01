@@ -12,7 +12,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
 }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -27,7 +27,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
     if (email.length == 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
     }
-    if (phone.length === 0 || !phoneNumRegex.test(phone)) {
+    if (phoneNum.length === 0 || !phoneNumRegex.test(phoneNum)) {
       setPhoneError("Zadejte tel. číslo");
     }
     if (
@@ -35,8 +35,8 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
       !fullName.trim().includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
-      phone.length == 0 ||
-      !phoneNumRegex.test(phone)
+      phoneNum.length == 0 ||
+      !phoneNumRegex.test(phoneNum)
     ) {
       return;
     } else {
@@ -44,12 +44,12 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
         id: Math.random(),
         fullName: fullName.trim(),
         email: email.trim(),
-        phoneNum: phone.trim(),
+        phoneNum: phoneNum.trim(),
       };
       addContact(newContact);
       setFullName("");
       setEmail("");
-      setPhone("");
+      setPhoneNum("");
     }
   }
 
@@ -87,9 +87,9 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
           error={emailError}
         />
         <AddValueInput
-          inputValue={phone}
+          inputValue={phoneNum}
           onInputChange={(e) => {
-            setPhone(e.target.value);
+            setPhoneNum(e.target.value);
             setPhoneError("");
           }}
           name="Telefon"
