@@ -19,7 +19,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
   const [phoneError, setPhoneError] = useState("");
 
   function handleClick() {
-    if (name.length == 0 || !name.includes(" ")) {
+    if (name.length == 0 || !name.trim().includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
     }
     if (email.length == 0 || !email.includes("@")) {
@@ -30,7 +30,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
     }
     if (
       name.length == 0 ||
-      !name.includes(" ") ||
+      !name.trim().includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
       phone.length == 0
@@ -39,9 +39,9 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
     } else {
       const newContact = {
         id: Math.random(),
-        fullName: name,
-        email: email,
-        phoneNum: phone,
+        fullName: name.trim(),
+        email: email.trim(),
+        phoneNum: phone.trim(),
       };
       addContact(newContact);
       setName("");
