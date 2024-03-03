@@ -23,6 +23,8 @@ const App = () => {
 
   */
 
+// testuji github
+
   function addContact(newContact) {
     updateContacts([...contacts, newContact]);
   }
