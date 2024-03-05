@@ -1,18 +1,20 @@
 import InfoComponent from "./InfoComponent";
+import { useContext } from "react";
+import { AppContext } from "../app";
 
 interface ContactInfoProps {
-  contacts: any;
   deleteContact: any;
   editContact: any;
   activeContactID: number;
 }
 
 const ContactInfo: React.FC<ContactInfoProps> = ({
-  contacts,
   deleteContact,
   editContact,
   activeContactID,
 }) => {
+  const contacts = useContext(AppContext);
+
   const activeContact = contacts.find((c) => c.id == activeContactID);
 
   return (

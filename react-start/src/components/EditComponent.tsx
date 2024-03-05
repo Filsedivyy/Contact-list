@@ -1,10 +1,10 @@
+import { AppContext } from "../app";
 import EditInputComponent from "./EditInputComponent";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface EditComponentProps {
   cancel: any;
   editContact: any;
-  contacts: any;
   setActiveContactID: any;
   setEditing: any;
   activeContactID: number;
@@ -12,11 +12,12 @@ interface EditComponentProps {
 const EditComponent: React.FC<EditComponentProps> = ({
   cancel,
   editContact,
-  contacts,
   setEditing,
   setActiveContactID,
   activeContactID,
 }) => {
+  const contacts = useContext(AppContext);
+
   const activeContact = contacts.find((c) => c.id == activeContactID);
 
   const [fullName, setFullName] = useState(activeContact.fullName);

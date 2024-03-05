@@ -1,9 +1,11 @@
 import ContactPanel from "./components/ContactPanel";
 import AddNewContact from "./components/AddNewContact";
 import ContactInfo from "./components/ContactInfo";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import LandingPageComponent from "./components/LandingPage";
 import EditComponent from "./components/EditComponent";
+
+export const AppContext = createContext(undefined);
 
 const App = () => {
   const [contacts, updateContacts] = useState([]);
@@ -48,21 +50,23 @@ const App = () => {
       {contacts.length > 0 &&
         activeContactID >= 0 &&
         (!editing ? (
-          <ContactInfo
-            contacts={contacts}
-            activeContactID={activeContactID}
-            deleteContact={deleteContact}
-            editContact={() => setEditing(true)}
-          />
+          <AppContext.Provider value={contacts}>
+            <ContactInfo
+              activeContactID={activeContactID}
+              deleteContact={deleteContact}
+              editContact={() => setEditing(true)}
+            />
+          </AppContext.Provider>
         ) : (
-          <EditComponent
-            cancel={() => setEditing(false)}
-            contacts={contacts}
-            editContact={editedContact}
-            setActiveContactID={setActiveContactID}
-            activeContactID={activeContactID}
-            setEditing={setEditing}
-          />
+          <AppContext.Provider value={contacts}>
+            <EditComponent
+              cancel={() => setEditing(false)}
+              editContact={editedContact}
+              setActiveContactID={setActiveContactID}
+              activeContactID={activeContactID}
+              setEditing={setEditing}
+            />
+          </AppContext.Provider>
         ))}
 
       {activeContactID == -1 && (
