@@ -49,17 +49,18 @@ const App = () => {
         activeContactID >= 0 &&
         (!editing ? (
           <ContactInfo
-            contact={contacts.find((c) => c.id === activeContactID)}
+            contacts={contacts}
+            activeContactID={activeContactID}
             deleteContact={deleteContact}
             editContact={() => setEditing(true)}
           />
         ) : (
           <EditComponent
-            contact={contacts.find((c) => c.id == activeContactID)}
             cancel={() => setEditing(false)}
             contacts={contacts}
             editContact={editedContact}
             setActiveContactID={setActiveContactID}
+            activeContactID={activeContactID}
             setEditing={setEditing}
           />
         ))}

@@ -2,24 +2,26 @@ import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
 
 interface EditComponentProps {
-  contact: any;
   cancel: any;
   editContact: any;
   contacts: any;
   setActiveContactID: any;
   setEditing: any;
+  activeContactID: number;
 }
 const EditComponent: React.FC<EditComponentProps> = ({
-  contact,
   cancel,
   editContact,
   contacts,
   setEditing,
   setActiveContactID,
+  activeContactID,
 }) => {
-  const [fullName, setFullName] = useState(contact.fullName);
-  const [email, setEmail] = useState(contact.email);
-  const [phoneNum, setPhoneNum] = useState(contact.phoneNum);
+  const activeContact = contacts.find((c) => c.id == activeContactID);
+
+  const [fullName, setFullName] = useState(activeContact.fullName);
+  const [email, setEmail] = useState(activeContact.email);
+  const [phoneNum, setPhoneNum] = useState(activeContact.phoneNum);
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -55,7 +57,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
       };
 
       const filteredContactsList = contacts.filter(
-        (oneContact) => oneContact.id !== contact.id
+        (oneContact) => oneContact.id !== activeContact.id
       );
 
       filteredContactsList.push(editedContact);
