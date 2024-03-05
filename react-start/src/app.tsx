@@ -35,6 +35,10 @@ const App = () => {
     }
   }
 
+  function findActiveContact() {
+    return contacts.find((c) => c.id == activeContactID);
+  }
+
   return (
     <div className="flex flex-row">
       <ContactPanel
