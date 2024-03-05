@@ -5,14 +5,24 @@ import { useState } from "react";
 import LandingPageComponent from "./components/LandingPage";
 import EditComponent from "./components/EditComponent";
 
-
-
 const App = () => {
   const [contacts, updateContacts] = useState([]);
 
   const [editing, setEditing] = useState(false);
   const [activeContactID, setActiveContactID] = useState(0);
 
+  /*const AppContext = createContext(0)
+
+
+  const [fullName, setFullName] = useState(contact.fullName);
+  const [email, setEmail] = useState(contact.email);
+  const [phoneNum, setPhoneNum] = useState(contact.phoneNum);
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
+  */
 
   function addContact(newContact) {
     updateContacts([...contacts, newContact]);
@@ -51,11 +61,11 @@ const App = () => {
       {contacts.length > 0 &&
         activeContactID >= 0 &&
         (!editing ? (
-            <ContactInfo
-              contact={contacts.find((c) => c.id === activeContactID)}
-              deleteContact={deleteContact}
-              editContact={() => setEditing(true)}
-            />
+          <ContactInfo
+            contact={contacts.find((c) => c.id === activeContactID)}
+            deleteContact={deleteContact}
+            editContact={() => setEditing(true)}
+          />
         ) : (
           <EditComponent
             contact={contacts.find((c) => c.id == activeContactID)}
