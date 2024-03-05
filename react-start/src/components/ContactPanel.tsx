@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 interface ContactPanelProps {
   contacts: any;
-  setActiveContactID: any;
-  ActiveContactID: number;
+  setActiveContactID: Function;
+  ActiveContactID: Number;
 }
 
 const ContactPanel: React.FC<ContactPanelProps> = ({
