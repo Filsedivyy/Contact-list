@@ -34,7 +34,7 @@ const App = () => {
       updateContacts(updatedContacts);
     }
   }
-
+  // test
   function findActiveContact() {
     return contacts.find((c) => c.id == activeContactID);
   }
