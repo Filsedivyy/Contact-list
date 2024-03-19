@@ -42,13 +42,13 @@ const ContactPanel: React.FC<ContactPanelProps> = ({
       <ul className="flex flex-col list-none">
         {contacts
           .filter(
-            (oneContact: { fullName: string }) =>
+            (oneContact: { name: string }) =>
               filterInputValue.length === 0 ||
-              oneContact.fullName
+              oneContact.name
                 .toLowerCase()
                 .includes(filterInputValue.toLowerCase())
           )
-          .map((oneContact: { id: number; fullName: string }) => (
+          .map((oneContact: { id: number; name: string }) => (
             <li
               className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px] hover:bg-[#daf6db] cursor-pointer ${
                 ActiveContactID === oneContact.id
@@ -58,7 +58,7 @@ const ContactPanel: React.FC<ContactPanelProps> = ({
               onClick={() => setActiveContactID(oneContact.id)}
               key={oneContact.id}
             >
-              {oneContact.fullName}
+              {oneContact.name}
             </li>
           ))}
       </ul>

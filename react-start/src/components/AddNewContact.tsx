@@ -2,17 +2,13 @@ import AddValueInput from "./AddValueInput";
 import { useState } from "react";
 
 interface AddNewContactProps {
-  addContact: any;
   cancel: any;
 }
 
-const AddNewContact: React.FC<AddNewContactProps> = ({
-  addContact,
-  cancel,
-}) => {
-  const [fullName, setFullName] = useState("");
+const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNum, setPhoneNum] = useState("");
+  const [phone, setPhone] = useState("");
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -20,36 +16,45 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
 
   const phoneNumRegex = /^\d+$/;
 
+  async function addContactToDB(name: string, email: string, phone: number) {
+    const sendingData = {
+      name: name,
+      email: email,
+      phone: phone,
+    };
+
+    await fetch("http://localhost:7070/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendingData),
+    });
+  }
+
   function handleClick() {
-    if (fullName.length == 0 || !fullName.trim().includes(" ")) {
+    if (name.length == 0 || !name.trim().includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
     }
     if (email.length == 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
     }
-    if (phoneNum.length === 0 || !phoneNumRegex.test(phoneNum)) {
+    if (phone.length === 0 || !phoneNumRegex.test(phone)) {
       setPhoneError("Zadejte tel. číslo");
     }
     if (
-      fullName.length == 0 ||
-      !fullName.trim().includes(" ") ||
+      name.length == 0 ||
+      !name.trim().includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
-      phoneNum.length == 0 ||
-      !phoneNumRegex.test(phoneNum)
+      phone.length == 0 ||
+      !phoneNumRegex.test(phone)
     ) {
       return;
     } else {
-      const newContact = {
-        id: Math.random(),
-        fullName: fullName.trim(),
-        email: email.trim(),
-        phoneNum: phoneNum.trim(),
-      };
-      addContact(newContact);
-      setFullName("");
-      setEmail("");
-      setPhoneNum("");
+      addContactToDB(name, email, parseInt(phone));
+      cancel();
+      window.location.reload();
     }
   }
 
@@ -69,9 +74,9 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
       <main className="px-[172px] flex flex-col gap-[16px]">
         <h2 className="mt-[32px] mb-[16px]">Přidat kontakt</h2>
         <AddValueInput
-          inputValue={fullName}
+          inputValue={name}
           onInputChange={(e) => {
-            setFullName(e.target.value);
+            setName(e.target.value);
             setNameError("");
           }}
           name="Celé jméno"
@@ -87,9 +92,9 @@ const AddNewContact: React.FC<AddNewContactProps> = ({
           error={emailError}
         />
         <AddValueInput
-          inputValue={phoneNum}
+          inputValue={phone}
           onInputChange={(e) => {
-            setPhoneNum(e.target.value);
+            setPhone(e.target.value);
             setPhoneError("");
           }}
           name="Telefon"

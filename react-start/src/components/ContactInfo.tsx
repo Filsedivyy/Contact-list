@@ -16,7 +16,8 @@ const ContactInfo: React.FC<ContactInfoProps> = ({
   const contacts = useContext(AppContext);
 
   const activeContact = contacts.find((c) => c.id == activeContactID);
-
+  //console.log(activeContact);
+  //console.log(activeContactID);
   return (
     <div className="flex flex-col items-center w-full">
       <header className="w-full flex items-center justify-center h-[48px] border-b border-[#E3E3E3] py-[4px]">
@@ -46,7 +47,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({
         <InfoComponent
           img={"phone.svg"}
           type={"Telefon"}
-          value={activeContact.phoneNum}
+          value={activeContact.phone}
         />
       </main>
     </div>

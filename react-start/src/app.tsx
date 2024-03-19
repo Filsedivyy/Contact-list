@@ -7,38 +7,53 @@ import EditComponent from "./components/EditComponent";
 
 export const AppContext = createContext(undefined);
 
+export interface Contact {
+  id: number;
+  name: string;
+  email: string;
+  phone: number;
+  created: Date;
+}
+
 const App = () => {
-  const [contacts, updateContacts] = useState([]);
+  const [contacts, updateContacts] = useState<Contact[]>([]);
 
   const [editing, setEditing] = useState(false);
   const [activeContactID, setActiveContactID] = useState(0);
 
-  // console.log(contacts)
+  useEffect(() => {
+    fetchContacts();
+  }, []);
 
-  function addContact(newContact) {
-    updateContacts([...contacts, newContact]);
+  async function fetchContacts() {
+    const response = await fetch("http://localhost:7070/contacts", {
+      method: "GET",
+    });
+    const data: Contact[] = await response.json();
+    updateContacts(data);
+
+    setActiveContactID(data[0].id);
+    //temporary fix, opravit state pokud neni nic v datech
+    // setLoading(false);
   }
+  //console.log(contacts);
+  //console.log(contacts.length);
+  /*if (contacts.length == 0) {
+    setActiveContactID(0);
+  } else {
+    setActiveContactID(contacts[0].id);
+  }*/
 
   function editedContact(contact) {
     updateContacts(contact);
   }
 
-  function deleteContact(idecko) {
-    const updatedContacts = contacts.filter(
-      (oneContact) => oneContact.id !== idecko
-    );
-    if (updatedContacts.length < contacts.length) {
-      let newActiveContactID = -1;
-      if (updatedContacts.length > 0) {
-        newActiveContactID = updatedContacts[0].id;
-      }
-      setActiveContactID(newActiveContactID);
-      updateContacts(updatedContacts);
-    }
-  }
-
-  function findActiveContact() {
-    return contacts.find((c) => c.id == activeContactID);
+  async function deleteContact(id: number) {
+    await fetch(`http://localhost:7070/delete/${id}`, {
+      method: "DELETE",
+    });
+    setActiveContactID(contacts[0].id);
+    window.location.reload();
   }
 
   return (
@@ -49,7 +64,7 @@ const App = () => {
         ActiveContactID={activeContactID}
       />
 
-      {contacts.length == 0 && activeContactID >= 0 && (
+      {activeContactID == 0 && (
         <LandingPageComponent setActiveContactID={setActiveContactID} />
       )}
 
@@ -77,7 +92,6 @@ const App = () => {
 
       {activeContactID == -1 && (
         <AddNewContact
-          addContact={addContact}
           cancel={() =>
             setActiveContactID(contacts.length === 0 ? 0 : contacts[0].id)
           }

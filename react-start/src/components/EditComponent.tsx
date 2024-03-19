@@ -11,18 +11,16 @@ interface EditComponentProps {
 }
 const EditComponent: React.FC<EditComponentProps> = ({
   cancel,
-  editContact,
-  setEditing,
-  setActiveContactID,
   activeContactID,
+  setActiveContactID,
 }) => {
   const contacts = useContext(AppContext);
 
   const activeContact = contacts.find((c) => c.id == activeContactID);
 
-  const [fullName, setFullName] = useState(activeContact.fullName);
+  const [name, setName] = useState(activeContact.name);
   const [email, setEmail] = useState(activeContact.email);
-  const [phoneNum, setPhoneNum] = useState(activeContact.phoneNum);
+  const [phone, setPhone] = useState(activeContact.phone);
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -30,42 +28,49 @@ const EditComponent: React.FC<EditComponentProps> = ({
 
   const phoneNumRegex = /^\d+$/;
 
+  async function editContact(
+    name: string,
+    email: string,
+    phone: number,
+    id: number
+  ) {
+    const sendingData = {
+      name: name,
+      email: email,
+      phone: phone,
+    };
+
+    await fetch(`http://localhost:7070/update/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendingData),
+    });
+  }
+
   function saveEdit() {
-    if (fullName.length == 0 || !fullName.includes(" ")) {
+    if (name.length == 0 || !name.includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
     }
     if (email.length === 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
     }
-    if (phoneNum.length === 0 || !phoneNumRegex.test(phoneNum)) {
+    if (phone.length === 0 || !phoneNumRegex.test(phone)) {
       setPhoneError("Zadejte telefonní číslo");
     }
     if (
-      fullName.length == 0 ||
-      !fullName.includes(" ") ||
+      name.length == 0 ||
+      !name.includes(" ") ||
       email.length == 0 ||
       !email.includes("@") ||
-      phoneNum.length == 0 ||
-      !phoneNumRegex.test(phoneNum)
+      phone.length == 0 ||
+      !phoneNumRegex.test(phone)
     ) {
-      return;
     } else {
-      const editedContact = {
-        id: Math.random(),
-        fullName: fullName,
-        email: email,
-        phoneNum: phoneNum,
-      };
-
-      const filteredContactsList = contacts.filter(
-        (oneContact) => oneContact.id !== activeContact.id
-      );
-
-      filteredContactsList.push(editedContact);
-
-      editContact(filteredContactsList);
-      setActiveContactID(editedContact.id);
-      setEditing(false);
+      editContact(name, email, phone, activeContactID);
+      setActiveContactID(activeContactID);
+      window.location.reload();
     }
   }
 
@@ -85,13 +90,13 @@ const EditComponent: React.FC<EditComponentProps> = ({
         <EditInputComponent
           label="Celé jméno"
           onInputChange={(e) => {
-            setFullName(e.target.value);
+            setName(e.target.value);
             setNameError("");
           }}
-          value={fullName}
+          value={name}
           error={nameError}
           clearInput={() => {
-            setFullName("");
+            setName("");
           }}
         />
         <EditInputComponent
@@ -109,13 +114,13 @@ const EditComponent: React.FC<EditComponentProps> = ({
         <EditInputComponent
           label="Telefon"
           onInputChange={(e) => {
-            setPhoneNum(e.target.value);
+            setPhone(e.target.value);
             setPhoneError("");
           }}
-          value={phoneNum}
+          value={phone}
           error={phoneError}
           clearInput={() => {
-            setPhoneNum("");
+            setPhone("");
           }}
         />
         <button
