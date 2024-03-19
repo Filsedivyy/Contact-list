@@ -7,37 +7,13 @@ import EditComponent from "./components/EditComponent";
 
 export const AppContext = createContext(undefined);
 
-export interface ContactFragment {
-  id: number;
-  name: string;
-}
-
-export interface Contact{
-  id: number;
-  name: string;
-  email: string;
-  phone: number;
-  created: TimeRanges;
-}
-
-
 const App = () => {
-  const [contact, updateContacts] = useState([]);
+  const [contacts, updateContacts] = useState([]);
 
   const [editing, setEditing] = useState(false);
   const [activeContactID, setActiveContactID] = useState(0);
 
-  const [contacts, setContacts] = useState<ContactFragment[]>([]);
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-async function fetchContacts(){
-  const response = await fetch("http://localhost:7070/contacts", {method: "GET"});
-  const data: Contact[] = await response.json();
-  setContacts(data);
-}
-// console.log(contacts)
+  // console.log(contacts)
 
   function addContact(newContact) {
     updateContacts([...contacts, newContact]);
@@ -60,11 +36,11 @@ async function fetchContacts(){
       updateContacts(updatedContacts);
     }
   }
-  /*
+
   function findActiveContact() {
     return contacts.find((c) => c.id == activeContactID);
   }
-  */
+
   return (
     <div className="flex flex-row">
       <ContactPanel
