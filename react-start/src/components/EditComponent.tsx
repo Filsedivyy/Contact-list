@@ -11,6 +11,7 @@ interface EditComponentProps {
 }
 const EditComponent: React.FC<EditComponentProps> = ({
   cancel,
+  setEditing,
   activeContactID,
   setActiveContactID,
 }) => {
@@ -37,16 +38,27 @@ const EditComponent: React.FC<EditComponentProps> = ({
     const sendingData = {
       name: name,
       email: email,
-      phone: phone,
+      phone: Number(phone),
     };
 
-    await fetch(`http://localhost:7070/update/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(sendingData),
-    });
+    try {
+      const response = await fetch(`http://localhost:7070/update/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendingData),
+      });
+
+      if (response.ok) {
+        console.log("HTTP požadavek byl úspěšně odeslán.");
+      } else {
+        console.log(JSON.stringify(sendingData));
+        console.error("Chyba při odesílání HTTP požadavku:", response.status);
+      }
+    } catch (error) {
+      console.error("Chyba při zpracování HTTP požadavku:", error);
+    }
   }
 
   function saveEdit() {
@@ -69,8 +81,9 @@ const EditComponent: React.FC<EditComponentProps> = ({
     ) {
     } else {
       editContact(name, email, phone, activeContactID);
+      setEditing(false);
       setActiveContactID(activeContactID);
-      window.location.reload();
+      //window.location.reload();
     }
   }
 

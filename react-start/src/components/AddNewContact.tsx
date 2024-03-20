@@ -52,7 +52,7 @@ const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
     ) {
       return;
     } else {
-      addContactToDB(name, email, parseInt(phone));
+      addContactToDB(name, email, Number(phone));
       cancel();
       window.location.reload();
     }

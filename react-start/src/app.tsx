@@ -36,13 +36,6 @@ const App = () => {
     //temporary fix, opravit state pokud neni nic v datech
     // setLoading(false);
   }
-  //console.log(contacts);
-  //console.log(contacts.length);
-  /*if (contacts.length == 0) {
-    setActiveContactID(0);
-  } else {
-    setActiveContactID(contacts[0].id);
-  }*/
 
   function editedContact(contact) {
     updateContacts(contact);
@@ -55,7 +48,7 @@ const App = () => {
     setActiveContactID(contacts[0].id);
     window.location.reload();
   }
-
+  //console.log(activeContactID);
   return (
     <div className="flex flex-row">
       <ContactPanel
@@ -68,8 +61,7 @@ const App = () => {
         <LandingPageComponent setActiveContactID={setActiveContactID} />
       )}
 
-      {contacts.length > 0 &&
-        activeContactID >= 0 &&
+      {activeContactID > 0 &&
         (!editing ? (
           <AppContext.Provider value={contacts}>
             <ContactInfo
