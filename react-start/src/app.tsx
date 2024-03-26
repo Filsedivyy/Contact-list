@@ -33,12 +33,6 @@ const App = () => {
     updateContacts(data);
 
     setActiveContactID(data[0].id);
-    //temporary fix, opravit state pokud neni nic v datech
-    // setLoading(false);
-  }
-
-  function editedContact(contact) {
-    updateContacts(contact);
   }
 
   async function deleteContact(id: number) {
@@ -48,11 +42,10 @@ const App = () => {
     setActiveContactID(contacts[0].id);
     window.location.reload();
   }
-  //console.log(activeContactID);
+
   return (
     <div className="flex flex-row">
       <ContactPanel
-        contacts={contacts}
         setActiveContactID={setActiveContactID}
         ActiveContactID={activeContactID}
       />
@@ -74,7 +67,6 @@ const App = () => {
           <AppContext.Provider value={contacts}>
             <EditComponent
               cancel={() => setEditing(false)}
-              editContact={editedContact}
               setActiveContactID={setActiveContactID}
               activeContactID={activeContactID}
               setEditing={setEditing}

@@ -1,21 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ContactPanelProps {
-  contacts: any;
   setActiveContactID: Function;
   ActiveContactID: Number;
 }
 
+export interface ContactFragment {
+  id: number;
+  name: string;
+}
+
 const ContactPanel: React.FC<ContactPanelProps> = ({
-  contacts,
   setActiveContactID,
   ActiveContactID,
 }) => {
   const [filterInputValue, setInputValue] = useState("");
-
+  const [contactFragments, setContactFragments] = useState<ContactFragment[]>(
+    []
+  );
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
   }
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  async function fetchContacts() {
+    const response = await fetch("http://localhost:7070/contact/id/name", {
+      method: "GET",
+    });
+    const data: ContactFragment[] = await response.json();
+    setContactFragments(data);
+  }
+  console.log(contactFragments);
 
   return (
     <div className="relative h-screen min-w-[400px] border-r-2 border-gray-300">
@@ -40,25 +58,25 @@ const ContactPanel: React.FC<ContactPanelProps> = ({
         />
       </div>
       <ul className="flex flex-col list-none">
-        {contacts
+        {contactFragments
           .filter(
-            (oneContact: { name: string }) =>
+            (contactFragment: { name: string }) =>
               filterInputValue.length === 0 ||
-              oneContact.name
+              contactFragment.name
                 .toLowerCase()
                 .includes(filterInputValue.toLowerCase())
           )
-          .map((oneContact: { id: number; name: string }) => (
+          .map((contactFragment: { id: number; name: string }) => (
             <li
               className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px] hover:bg-[#daf6db] cursor-pointer ${
-                ActiveContactID === oneContact.id
+                ActiveContactID === contactFragment.id
                   ? "bg-[#5DD661] text-white hover:bg-[#127615] "
                   : ""
               }`}
-              onClick={() => setActiveContactID(oneContact.id)}
-              key={oneContact.id}
+              onClick={() => setActiveContactID(contactFragment.id)}
+              key={contactFragment.id}
             >
-              {oneContact.name}
+              {contactFragment.name}
             </li>
           ))}
       </ul>

@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 
 interface EditComponentProps {
   cancel: any;
-  editContact: any;
   setActiveContactID: any;
   setEditing: any;
   activeContactID: number;
@@ -83,7 +82,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
       editContact(name, email, phone, activeContactID);
       setEditing(false);
       setActiveContactID(activeContactID);
-      //window.location.reload();
     }
   }
 
