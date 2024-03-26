@@ -1,53 +1,75 @@
 import ContactPanel from "./components/ContactPanel";
 import AddNewContact from "./components/AddNewContact";
 import ContactInfo from "./components/ContactInfo";
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import LandingPageComponent from "./components/LandingPage";
 import EditComponent from "./components/EditComponent";
 
-export const AppContext = createContext(undefined);
-
-export interface Contact {
+export interface ContactInfo {
   id: number;
   name: string;
   email: string;
   phone: number;
   created: Date;
 }
-
+export interface ContactFragment {
+  id: number;
+  name: string;
+}
 const App = () => {
-  const [contacts, updateContacts] = useState<Contact[]>([]);
-
+  const [contactFragments, setContactFragments] = useState<ContactFragment[]>(
+    []
+  );
+  const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
   const [editing, setEditing] = useState(false);
   const [activeContactID, setActiveContactID] = useState(0);
 
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  async function fetchContacts() {
-    const response = await fetch("http://localhost:7070/contacts", {
+  async function getContactInfo(id: number) {
+    const response = await fetch(`http://localhost:7070/contact/${id}`, {
       method: "GET",
     });
-    const data: Contact[] = await response.json();
-    updateContacts(data);
+    const data: ContactInfo[] = await response.json();
+    setContactInfo(data);
+    setActiveContactID(data.id);
+  }
 
-    setActiveContactID(data[0].id);
+  function reloadData() {
+    fetchContactFragments();
+  }
+
+  useEffect(() => {
+    fetchContactFragments();
+  }, []);
+
+  async function fetchContactFragments() {
+    const response = await fetch("http://localhost:7070/contact/id/name", {
+      method: "GET",
+    });
+    const data: ContactFragment[] = await response.json();
+    setContactFragments(data);
+    if (data.length === 0) {
+      setActiveContactID(0);
+    } else {
+      setActiveContactID(data[0].id);
+      getContactInfo(data[0].id);
+    }
   }
 
   async function deleteContact(id: number) {
     await fetch(`http://localhost:7070/delete/${id}`, {
       method: "DELETE",
     });
-    setActiveContactID(contacts[0].id);
-    window.location.reload();
+    setActiveContactID(contactFragments[0].id);
+    reloadData();
   }
 
   return (
     <div className="flex flex-row">
       <ContactPanel
+        contactFragments={contactFragments}
         setActiveContactID={setActiveContactID}
         ActiveContactID={activeContactID}
+        getContactInfoFunc={getContactInfo}
       />
 
       {activeContactID == 0 && (
@@ -56,28 +78,29 @@ const App = () => {
 
       {activeContactID > 0 &&
         (!editing ? (
-          <AppContext.Provider value={contacts}>
-            <ContactInfo
-              activeContactID={activeContactID}
-              deleteContact={deleteContact}
-              editContact={() => setEditing(true)}
-            />
-          </AppContext.Provider>
+          <ContactInfo
+            contactInfo={contactInfo}
+            activeContactID={activeContactID}
+            deleteContact={deleteContact}
+            editContact={() => setEditing(true)}
+          />
         ) : (
-          <AppContext.Provider value={contacts}>
-            <EditComponent
-              cancel={() => setEditing(false)}
-              setActiveContactID={setActiveContactID}
-              activeContactID={activeContactID}
-              setEditing={setEditing}
-            />
-          </AppContext.Provider>
+          <EditComponent
+            reloadDataFunc={reloadData}
+            contactInfo={contactInfo}
+            cancel={() => setEditing(false)}
+            setActiveContactID={setActiveContactID}
+            activeContactID={activeContactID}
+            setEditing={setEditing}
+          />
         ))}
 
       {activeContactID == -1 && (
         <AddNewContact
           cancel={() =>
-            setActiveContactID(contacts.length === 0 ? 0 : contacts[0].id)
+            setActiveContactID(
+              contactFragments.length === 0 ? 0 : contactFragments[0].id
+            )
           }
         />
       )}

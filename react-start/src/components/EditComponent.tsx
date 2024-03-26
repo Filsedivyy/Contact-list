@@ -1,22 +1,23 @@
-import { AppContext } from "../app";
 import EditInputComponent from "./EditInputComponent";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 interface EditComponentProps {
   cancel: any;
   setActiveContactID: any;
   setEditing: any;
   activeContactID: number;
+  contactInfo: any;
+  reloadDataFunc: any
 }
 const EditComponent: React.FC<EditComponentProps> = ({
   cancel,
   setEditing,
   activeContactID,
   setActiveContactID,
+  contactInfo,
+  reloadDataFunc
 }) => {
-  const contacts = useContext(AppContext);
-
-  const activeContact = contacts.find((c) => c.id == activeContactID);
+  const activeContact = contactInfo;
 
   const [name, setName] = useState(activeContact.name);
   const [email, setEmail] = useState(activeContact.email);
@@ -58,6 +59,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
     } catch (error) {
       console.error("Chyba při zpracování HTTP požadavku:", error);
     }
+    reloadDataFunc()
   }
 
   function saveEdit() {

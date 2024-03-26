@@ -1,39 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 interface ContactPanelProps {
   setActiveContactID: Function;
   ActiveContactID: Number;
-}
-
-export interface ContactFragment {
-  id: number;
-  name: string;
+  contactFragments: any;
+  getContactInfoFunc: any;
 }
 
 const ContactPanel: React.FC<ContactPanelProps> = ({
   setActiveContactID,
   ActiveContactID,
+  contactFragments,
+  getContactInfoFunc,
 }) => {
   const [filterInputValue, setInputValue] = useState("");
-  const [contactFragments, setContactFragments] = useState<ContactFragment[]>(
-    []
-  );
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
   }
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  async function fetchContacts() {
-    const response = await fetch("http://localhost:7070/contact/id/name", {
-      method: "GET",
-    });
-    const data: ContactFragment[] = await response.json();
-    setContactFragments(data);
-  }
-  console.log(contactFragments);
 
   return (
     <div className="relative h-screen min-w-[400px] border-r-2 border-gray-300">
@@ -73,7 +57,7 @@ const ContactPanel: React.FC<ContactPanelProps> = ({
                   ? "bg-[#5DD661] text-white hover:bg-[#127615] "
                   : ""
               }`}
-              onClick={() => setActiveContactID(contactFragment.id)}
+              onClick={() => getContactInfoFunc(contactFragment.id)}
               key={contactFragment.id}
             >
               {contactFragment.name}
