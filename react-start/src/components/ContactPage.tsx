@@ -7,7 +7,7 @@ import { ContactInfo } from "../app";
 interface ContactPageProps {
   onAddFunc: any;
   setActiveContactIdFunc: any;
- // cancelFunc: any;
+  // cancelFunc: any;
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({
@@ -17,9 +17,8 @@ const ContactPage: React.FC<ContactPageProps> = ({
 }) => {
   const [contactDetail, setContactDetail] = useState<ContactInfo | undefined>();
   const params = useParams<{ id: string }>();
-  const [isEditing, setIsEditing] = useState(false);
-  // const [isEditing] = useRoute(`/${contactDetail.id}/edit`);
-  //nevypisuje se ID, nefunguje směrování rovnou z /edit
+  const [isEditing] = useRoute(`/${params.id}/edit`);
+
 
   useEffect(() => {
     fetchContactInfo();
@@ -34,9 +33,6 @@ const ContactPage: React.FC<ContactPageProps> = ({
     setActiveContactIdFunc(data.id);
   }
 
-  function EditToggler() {
-    isEditing ? setIsEditing(false) : setIsEditing(true);
-  }
   function onAdd() {
     onAddFunc();
     useEffect(() => {
@@ -50,14 +46,13 @@ const ContactPage: React.FC<ContactPageProps> = ({
     <EditComponent
       onAddFunc={onAdd}
       contact={contactDetail}
-      taskHandler={EditToggler}
+      taskHandler={onAdd}
     />
   ) : (
     <ContactDetail
-     // deleteFunc={cancelFunc}
+      // deleteFunc={cancelFunc}
       onAddFunc={onAdd}
       contact={contactDetail}
-      taskHandler={EditToggler}
     />
   );
 };
