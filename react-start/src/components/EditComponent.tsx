@@ -1,27 +1,20 @@
 import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
+import { Link } from "wouter";
 
 interface EditComponentProps {
-  cancel: any;
-  setActiveContactID: any;
-  setEditing: any;
-  activeContactID: number;
-  contactInfo: any;
-  reloadDataFunc: any
+  contact: any;
+  taskHandler: () => void;
+  onAddFunc: any;
 }
 const EditComponent: React.FC<EditComponentProps> = ({
-  cancel,
-  setEditing,
-  activeContactID,
-  setActiveContactID,
-  contactInfo,
-  reloadDataFunc
+  contact,
+  taskHandler,
+  onAddFunc,
 }) => {
-  const activeContact = contactInfo;
-
-  const [name, setName] = useState(activeContact.name);
-  const [email, setEmail] = useState(activeContact.email);
-  const [phone, setPhone] = useState(activeContact.phone);
+  const [name, setName] = useState(contact.name);
+  const [email, setEmail] = useState(contact.email);
+  const [phone, setPhone] = useState(contact.phone);
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -59,7 +52,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
     } catch (error) {
       console.error("Chyba při zpracování HTTP požadavku:", error);
     }
-    reloadDataFunc()
   }
 
   function saveEdit() {
@@ -81,22 +73,24 @@ const EditComponent: React.FC<EditComponentProps> = ({
       !phoneNumRegex.test(phone)
     ) {
     } else {
-      editContact(name, email, phone, activeContactID);
-      setEditing(false);
-      setActiveContactID(activeContactID);
+      editContact(name, email, phone, contact.id);
+      taskHandler();
+      onAddFunc(contact.id);
     }
   }
 
   return (
     <div className="w-full">
-      <header className="w-full h-[48px] border-b-[1px] border-solid border-[#E3E3E3] flex justify-center items-center ">
+      <header className="w-full h-[48px] border-b-[2px] border-solid border-[#E3E3E3] flex justify-center items-center ">
         <h3> Upravit kontakt</h3>
-        <button
-          className="absolute right-[8px] top-[4px] w-[64px] h-[40px]"
-          onClick={cancel}
-        >
-          Zrušit
-        </button>
+        <Link href={/* možnost togglu */ `/${contact.id}`}>
+          <button
+            className="absolute right-[8px] top-[4px] w-[64px] h-[40px]"
+            onClick={taskHandler}
+          >
+            Zrušit
+          </button>
+        </Link>
       </header>
       <main className="px-[172px] pt-[32px] flex flex-col gap-[16px]">
         <h1 className="mb-[16px]">Upravit kontakt</h1>
@@ -136,12 +130,13 @@ const EditComponent: React.FC<EditComponentProps> = ({
             setPhone("");
           }}
         />
-        <button
-          className="mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
+        <Link
+          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
           onClick={saveEdit}
+          href={`/${contact.id}`}
         >
           Uložit změny
-        </button>
+        </Link>
       </main>
     </div>
   );

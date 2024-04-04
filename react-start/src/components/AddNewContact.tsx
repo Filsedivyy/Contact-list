@@ -1,11 +1,12 @@
+import { Link } from "wouter";
 import AddValueInput from "./AddValueInput";
-import { useState } from "react";
-
+import { FC, useState } from "react";
 interface AddNewContactProps {
-  cancel: any;
+  onAddFunc: any;
+  cancelFunc: any;
 }
 
-const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
+const AddNewContact: FC<AddNewContactProps> = ({ onAddFunc, cancelFunc }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -23,13 +24,19 @@ const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
       phone: phone,
     };
 
-    await fetch("http://localhost:7070/add", {
+    const response = await fetch("http://localhost:7070/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(sendingData),
     });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log(responseData);
+      onAddFunc();
+    }
   }
 
   function handleClick() {
@@ -52,9 +59,8 @@ const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
     ) {
       return;
     } else {
-      addContactToDB(name, email, Number(phone));
-      cancel();
-      // window.location.reload();
+      addContactToDB(name.trim(), email.trim(), Number(phone));
+      // window.location.href = "/"; //temporary fix, správně by to mělo přesměrovat na detail nového kontaktu
     }
   }
 
@@ -63,9 +69,9 @@ const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
       <header className="w-full h-[48px] border-b-2 border-gray-300 flex justify-center items-center">
         <h3>Přidat kontakt</h3>
         <button
+          onClick={cancelFunc}
           className="absolute right-[8px] top-[4px] w-[64px] h-[40px] cursor-pointer border-none bg-transparent"
           id="cancel"
-          onClick={cancel}
         >
           Zrušit
         </button>
@@ -101,8 +107,8 @@ const AddNewContact: React.FC<AddNewContactProps> = ({ cancel }) => {
           error={phoneError}
         />
         <button
-          className="mt-[8px] h-[56px] bg-[#5DD661] text-white rounded-[16px] border-none "
           onClick={handleClick}
+          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] text-white rounded-[16px] border-none "
         >
           Přidat kontakt
         </button>
