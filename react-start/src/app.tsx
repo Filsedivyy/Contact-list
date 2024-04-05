@@ -20,7 +20,13 @@ export interface ContactInfo {
 /*
 
 TODOS
-pokud smažu 1. kontakt, nahodí se loading místo jiného kontaktu + je funkce pomalá a dělá prokliky
+
+1. loading animace -> komponent
+kontrola inputu -> funkce
+implemetnace fontu
+pridat obrazy??
+
+
 
 */
 
