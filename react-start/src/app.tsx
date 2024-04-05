@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route, Switch } from "wouter";
+import { Link, Route, Switch, useLocation } from "wouter";
 import AddNewContact from "./components/AddNewContact";
 import ContactPage from "./components/ContactPage";
 import LandingPageComponent from "./components/LandingPage";
@@ -29,6 +29,7 @@ const App = () => {
   const [activeContactID, setActiveContactID] = useState(0);
   const [filterInputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [location, navigate] = useLocation();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
@@ -38,13 +39,15 @@ const App = () => {
     fetchContacts();
   }, []);
 
-  async function fetchContacts() {
+  async function fetchContacts(): Promise<ContactFragment[]> {
     const response = await fetch("http://localhost:7070/contact/id/name", {
       method: "GET",
     });
     const data: ContactInfo[] = await response.json();
+    console.log(data);
     setContacts(data);
     setIsLoading(false);
+    return data;
   }
 
   async function onAdd() {
@@ -55,15 +58,14 @@ const App = () => {
     await fetch(`http://localhost:7070/delete/${id}`, {
       method: "DELETE",
     });
-    await onAdd();
-    cancelFunc();
+    cancelFunc(await fetchContacts());
   }
 
-  function cancelFunc() {
-    if (contacts === null) {
-      window.location.href = "/";
+  function cancelFunc(contacts: ContactFragment[]) {
+    if (contacts.length == 0) {
+      navigate("/");
     } else {
-      window.location.href = `/${contacts[0].id}`;
+      navigate(`/${contacts[0].id}`);
     }
   }
 
