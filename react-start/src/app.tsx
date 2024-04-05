@@ -55,20 +55,25 @@ const App = () => {
     setActiveContactID(id);
   }
 
+  async function reloadData() {
+    await fetchContacts();
+  }
+
   async function deleteContactFromDb(id: number) {
     await fetch(`http://localhost:7070/delete/${id}`, {
       method: "DELETE",
     });
-    onAdd(contacts[0].id);
+    await onAdd(contacts[0].id);
     contacts === null
-      ? (() => {
+      ? (() => { 
           window.location.href = "/";
         })()
       : (() => {
           window.location.href = `/${contacts[0].id}`;
           console.log(contacts[0].id);
         })();
-    // funkce se musí opravit, aby pokud se smaže 1. kontakt jiný ho nahradí + je tam nějaký loading
+        //snad fixed
+        // funkce se musí opravit, aby pokud se smaže 1. kontakt jiný ho nahradí + je tam nějaký loading
   }
 
   function cancel() {
