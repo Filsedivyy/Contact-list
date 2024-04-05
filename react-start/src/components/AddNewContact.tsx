@@ -1,12 +1,16 @@
-import { Link } from "wouter";
 import AddValueInput from "./AddValueInput";
 import { FC, useState } from "react";
 interface AddNewContactProps {
   onAddFunc: any;
   cancelFunc: any;
+  setActiveContactIdFunc: any;
 }
 
-const AddNewContact: FC<AddNewContactProps> = ({ onAddFunc, cancelFunc }) => {
+const AddNewContact: FC<AddNewContactProps> = ({
+  onAddFunc,
+  cancelFunc,
+  setActiveContactIdFunc,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,6 +20,8 @@ const AddNewContact: FC<AddNewContactProps> = ({ onAddFunc, cancelFunc }) => {
   const [phoneError, setPhoneError] = useState("");
 
   const phoneNumRegex = /^\d+$/;
+
+  setActiveContactIdFunc(0);
 
   async function addContactToDB(name: string, email: string, phone: number) {
     const sendingData = {
@@ -34,8 +40,9 @@ const AddNewContact: FC<AddNewContactProps> = ({ onAddFunc, cancelFunc }) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log(responseData);
+      console.log(responseData.id);
       onAddFunc();
+      window.location.href = `/${responseData.id}`;
     }
   }
 
@@ -60,7 +67,6 @@ const AddNewContact: FC<AddNewContactProps> = ({ onAddFunc, cancelFunc }) => {
       return;
     } else {
       addContactToDB(name.trim(), email.trim(), Number(phone));
-      // window.location.href = "/"; //temporary fix, správně by to mělo přesměrovat na detail nového kontaktu
     }
   }
 

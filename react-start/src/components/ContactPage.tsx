@@ -7,18 +7,19 @@ import { ContactInfo } from "../app";
 interface ContactPageProps {
   onAddFunc: any;
   setActiveContactIdFunc: any;
-  // cancelFunc: any;
+  deleteContact: any;
+
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({
   onAddFunc,
   setActiveContactIdFunc,
-  //cancelFunc,
+  deleteContact
+
 }) => {
   const [contactDetail, setContactDetail] = useState<ContactInfo | undefined>();
   const params = useParams<{ id: string }>();
   const [isEditing] = useRoute(`/${params.id}/edit`);
-
 
   useEffect(() => {
     fetchContactInfo();
@@ -39,7 +40,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
       fetchContactInfo();
     });
   }
-  console.log(isEditing);
+
   if (!contactDetail) return <div>Načítání...</div>;
 
   return isEditing ? (
@@ -50,8 +51,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
     />
   ) : (
     <ContactDetail
-      // deleteFunc={cancelFunc}
-      onAddFunc={onAdd}
+      deleteContact={deleteContact}
       contact={contactDetail}
     />
   );

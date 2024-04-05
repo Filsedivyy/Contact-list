@@ -2,28 +2,13 @@ import InfoComponent from "./InfoComponent";
 import { Link } from "wouter";
 interface ContactDetailProps {
   contact: any;
-
-  onAddFunc: () => void;
-  //  cancelFunc: any;
+  deleteContact: any;
 }
 
 const ContactDetail: React.FC<ContactDetailProps> = ({
   contact,
-
-  onAddFunc,
-  // cancelFunc,
+  deleteContact,
 }) => {
-  async function deleteContactFromDb(id: number) {
-    await fetch(`http://localhost:7070/delete/${id}`, {
-      method: "DELETE",
-    });
-  }
-
-  function deleteContact() {
-    deleteContactFromDb(contact.id);
-    onAddFunc();
-    //  cancelFunc();
-  }
   return (
     <div className="flex flex-col items-center w-full">
       <header className="w-full flex items-center justify-center h-[48px] border-b-2 border-gray-300 py-[4px]">
@@ -31,12 +16,14 @@ const ContactDetail: React.FC<ContactDetailProps> = ({
         <div className="flex gap-[8px] absolute right-[8px] top-[4px]">
           <Link
             className="size-[40px] p-[8px] flex items-center justify-center"
-            onClick={deleteContact}
+            onClick={() => {
+              deleteContact(contact.id);
+            }}
             href="/"
           >
             <img src="./delete.svg" alt="" />
           </Link>
-          <Link href={/* možnost togglu */ `${contact.id}/edit`}>
+          <Link href={`${contact.id}/edit`}>
             <button className="size-[40px] p-[8px] flex items-center justify-center">
               <img src="./edit.svg" alt="" />
             </button>

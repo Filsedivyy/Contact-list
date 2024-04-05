@@ -20,9 +20,7 @@ export interface ContactInfo {
 /*
 
 TODOS
-
 pokud smažu 1. kontakt, nahodí se loading místo jiného kontaktu + je funkce pomalá a dělá prokliky
-pokud přidám kontakt, zobrazí se detail nového kontaktu -> JSON error vypsaný v komponentu
 
 */
 
@@ -49,13 +47,7 @@ const App = () => {
     setIsLoading(false);
   }
 
-  async function onAdd(id: number) {
-    await fetchContacts();
-    console.log("onADD použito");
-    setActiveContactID(id);
-  }
-
-  async function reloadData() {
+  async function onAdd() {
     await fetchContacts();
   }
 
@@ -63,28 +55,18 @@ const App = () => {
     await fetch(`http://localhost:7070/delete/${id}`, {
       method: "DELETE",
     });
-    await onAdd(contacts[0].id);
-    contacts === null
-      ? (() => { 
-          window.location.href = "/";
-        })()
-      : (() => {
-          window.location.href = `/${contacts[0].id}`;
-          console.log(contacts[0].id);
-        })();
-        //snad fixed
-        // funkce se musí opravit, aby pokud se smaže 1. kontakt jiný ho nahradí + je tam nějaký loading
+    await onAdd();
+    cancelFunc();
   }
 
-  function cancel() {
-    // lze použít při mazání kontaktu
-    contacts === null
-      ? (window.location.href = "/")
-      : () => {
-          window.location.href = `/${contacts[0].id}`;
-          console.log(contacts[0].id);
-        };
+  function cancelFunc() {
+    if (contacts === null) {
+      window.location.href = "/";
+    } else {
+      window.location.href = `/${contacts[0].id}`;
+    }
   }
+
   return (
     <div className="flex">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
@@ -142,18 +124,22 @@ const App = () => {
           <LandingPageComponent />
         </Route>
         <Route path="/add">
-          <AddNewContact cancelFunc={cancel} onAddFunc={onAdd}></AddNewContact>
+          <AddNewContact
+            setActiveContactIdFunc={setActiveContactID}
+            cancelFunc={cancelFunc}
+            onAddFunc={onAdd}
+          ></AddNewContact>
         </Route>
         <Route path="/:id/edit">
           <ContactPage
-            // deleteFunc={deleteContactFromDb}
+            deleteContact={deleteContactFromDb}
             setActiveContactIdFunc={setActiveContactID}
             onAddFunc={onAdd}
           />
         </Route>
         <Route path="/:id">
           <ContactPage
-            //  deleteFunc={deleteContactFromDb}
+            deleteContact={deleteContactFromDb}
             setActiveContactIdFunc={setActiveContactID}
             onAddFunc={onAdd}
           />
@@ -163,8 +149,4 @@ const App = () => {
   );
 };
 
-/*
-  return <AddNewContact cancelFunc={cancel} onAddFunc={onAdd}></AddNewContact>;
-};
-*/
 export default App;

@@ -83,7 +83,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
     <div className="w-full">
       <header className="w-full h-[48px] border-b-[2px] border-solid border-[#E3E3E3] flex justify-center items-center ">
         <h3> Upravit kontakt</h3>
-        <Link href={/* možnost togglu */ `/${contact.id}`}>
+        <Link href={`/${contact.id}`}>
           <button
             className="absolute right-[8px] top-[4px] w-[64px] h-[40px]"
             onClick={taskHandler}
