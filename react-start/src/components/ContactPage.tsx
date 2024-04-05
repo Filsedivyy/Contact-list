@@ -8,14 +8,12 @@ interface ContactPageProps {
   onAddFunc: any;
   setActiveContactIdFunc: any;
   deleteContact: any;
-
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({
   onAddFunc,
   setActiveContactIdFunc,
-  deleteContact
-
+  deleteContact,
 }) => {
   const [contactDetail, setContactDetail] = useState<ContactInfo | undefined>();
   const params = useParams<{ id: string }>();
@@ -36,24 +34,15 @@ const ContactPage: React.FC<ContactPageProps> = ({
 
   function onAdd() {
     onAddFunc();
-    useEffect(() => {
-      fetchContactInfo();
-    });
+    fetchContactInfo();
   }
 
   if (!contactDetail) return <div>Načítání...</div>;
 
   return isEditing ? (
-    <EditComponent
-      onAddFunc={onAdd}
-      contact={contactDetail}
-      taskHandler={onAdd}
-    />
+    <EditComponent contact={contactDetail} taskHandler={onAdd} />
   ) : (
-    <ContactDetail
-      deleteContact={deleteContact}
-      contact={contactDetail}
-    />
+    <ContactDetail deleteContact={deleteContact} contact={contactDetail} />
   );
 };
 

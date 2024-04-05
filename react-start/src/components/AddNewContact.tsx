@@ -1,4 +1,5 @@
 import AddValueInput from "./AddValueInput";
+import { useLocation } from "wouter";
 import { FC, useState } from "react";
 interface AddNewContactProps {
   onAddFunc: any;
@@ -18,6 +19,8 @@ const AddNewContact: FC<AddNewContactProps> = ({
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+
+  const [location, navigate] = useLocation();
 
   const phoneNumRegex = /^\d+$/;
 
@@ -42,7 +45,7 @@ const AddNewContact: FC<AddNewContactProps> = ({
       const responseData = await response.json();
       console.log(responseData.id);
       onAddFunc();
-      window.location.href = `/${responseData.id}`;
+      navigate(`/${responseData.id}`);
     }
   }
 

@@ -1,16 +1,14 @@
 import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 interface EditComponentProps {
   contact: any;
   taskHandler: () => void;
-  onAddFunc: any;
 }
 const EditComponent: React.FC<EditComponentProps> = ({
   contact,
   taskHandler,
-  onAddFunc,
 }) => {
   const [name, setName] = useState(contact.name);
   const [email, setEmail] = useState(contact.email);
@@ -20,6 +18,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
 
+  const [location, navigate] = useLocation();
   const phoneNumRegex = /^\d+$/;
 
   async function editContact(
@@ -45,6 +44,10 @@ const EditComponent: React.FC<EditComponentProps> = ({
 
       if (response.ok) {
         console.log("HTTP požadavek byl úspěšně odeslán.");
+
+        console.log("test");
+        navigate(`/${contact.id}`);
+        taskHandler();
       } else {
         console.log(JSON.stringify(sendingData));
         console.error("Chyba při odesílání HTTP požadavku:", response.status);
@@ -74,8 +77,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
     ) {
     } else {
       editContact(name, email, phone, contact.id);
-      taskHandler();
-      onAddFunc(contact.id);
     }
   }
 
@@ -130,13 +131,12 @@ const EditComponent: React.FC<EditComponentProps> = ({
             setPhone("");
           }}
         />
-        <Link
+        <button
           className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
           onClick={saveEdit}
-          href={`/${contact.id}`}
         >
           Uložit změny
-        </Link>
+        </button>
       </main>
     </div>
   );

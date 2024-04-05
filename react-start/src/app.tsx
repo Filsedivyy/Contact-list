@@ -44,7 +44,6 @@ const App = () => {
       method: "GET",
     });
     const data: ContactInfo[] = await response.json();
-    console.log(data);
     setContacts(data);
     setIsLoading(false);
     return data;
