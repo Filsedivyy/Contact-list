@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
-import AddNewContact from "./components/AddNewContact";
-import ContactPage from "./components/ContactPage";
-import LandingPageComponent from "./components/LandingPage";
+import AddNewContact from "./pages/AddNewContact";
+import ContactPage from "./pages/ContactPage";
+import LandingPageComponent from "./pages/LandingPage";
 
 export interface ContactFragment {
   id: number;

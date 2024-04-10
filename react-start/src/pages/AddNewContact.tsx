@@ -1,4 +1,4 @@
-import AddValueInput from "./AddValueInput";
+import AddValueInput from "../components/AddValueInput";
 import { useLocation } from "wouter";
 import { FC, useState } from "react";
 interface AddNewContactProps {

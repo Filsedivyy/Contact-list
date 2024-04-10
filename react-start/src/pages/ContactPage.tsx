@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRoute } from "wouter";
-import ContactDetail from "./ContactDetail";
-import EditComponent from "./EditComponent";
+import ContactDetail from "../components/ContactDetail";
+import EditComponent from "../components/EditComponent";
 import { ContactInfo } from "../app";
 
 interface ContactPageProps {
