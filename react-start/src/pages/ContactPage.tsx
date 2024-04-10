@@ -3,6 +3,7 @@ import { useParams, useRoute } from "wouter";
 import ContactDetail from "../components/ContactDetail";
 import EditComponent from "../components/EditComponent";
 import { ContactInfo } from "../app";
+import LoadingComponent from "../components/Loading";
 
 interface ContactPageProps {
   onAddFunc: any;
@@ -37,7 +38,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
     fetchContactInfo();
   }
 
-  if (!contactDetail) return <div>Načítání...</div>;
+  if (!contactDetail) return <LoadingComponent />;
 
   return isEditing ? (
     <EditComponent contact={contactDetail} taskHandler={onAdd} />

@@ -3,7 +3,7 @@ import { Link, Route, Switch, useLocation } from "wouter";
 import AddNewContact from "./pages/AddNewContact";
 import ContactPage from "./pages/ContactPage";
 import LandingPageComponent from "./pages/LandingPage";
-
+import LoadingComponent from "./components/Loading";
 export interface ContactFragment {
   id: number;
   name: string;
@@ -16,19 +16,6 @@ export interface ContactInfo {
   phone: string;
   created: string;
 }
-
-/*
-
-TODOS
-
-1. loading animace -> komponent
-kontrola inputu -> funkce
-implemetnace fontu
-pridat obrazy??
-
-
-
-*/
 
 const App = () => {
   const [contacts, setContacts] = useState<ContactFragment[]>([]);
@@ -96,9 +83,11 @@ const App = () => {
         </div>
 
         {isLoading ? (
-          <div>Načítání...</div>
+          <LoadingComponent />
         ) : contacts === null ? (
-          <div>Žádné kontakty</div>
+          <div className="w-full flex justify-center pt-[100px]">
+            Žádné kontakty
+          </div>
         ) : (
           <ul>
             {contacts
