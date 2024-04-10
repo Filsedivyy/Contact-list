@@ -43,9 +43,6 @@ const EditComponent: React.FC<EditComponentProps> = ({
       });
 
       if (response.ok) {
-        console.log("HTTP požadavek byl úspěšně odeslán.");
-
-        console.log("test");
         navigate(`/${contact.id}`);
         taskHandler();
       } else {
