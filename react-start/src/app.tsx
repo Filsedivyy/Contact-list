@@ -78,11 +78,11 @@ const App = () => {
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
         <header className="py-[4px] px-[8px] border-b-2 border-gray-300 flex justify-center items-center h-[48px]">
           <h3>Kontakty</h3>
-          <button className="absolute top-[4px] right-[4px] h-[40px] w-[40px] flex items-center justify-center cursor-pointer border-none hover:opacity-60  focus:opacity-100">
-            <Link href="/add">
+          <Link href={"/add"}>
+            <button className="absolute right-[14px] top-[4px] size-[40px] p-[8px] flex items-center justify-center hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
               <img src="./icon.svg" alt="" />
-            </Link>
-          </button>
+            </button>
+          </Link>
         </header>
         <div className="pt-[32px] pb-[8px] px-[16px] flex flex-col gap-[16px]">
           <h2>Kontakty</h2>

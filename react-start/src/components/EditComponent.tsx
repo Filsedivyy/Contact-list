@@ -82,7 +82,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
       <header className="w-full flex items-center justify-center h-[48px] border-b-2 border-gray-300 py-[4px]">
         <h3> Upravit kontakt</h3>
         <Link href={`/${contact.id}`}>
-          <button className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-60  focus:opacity-100">
+          <button className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
             Zrušit
           </button>
         </Link>
@@ -126,7 +126,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
           }}
         />
         <button
-          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white "
+          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white  hover:bg-[#6ef573] active:bg-[#34cc39]"
           onClick={saveEdit}
         >
           Uložit změny

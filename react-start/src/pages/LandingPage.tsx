@@ -8,7 +8,7 @@ const LandingPageComponent = () => {
         V listu momentálně nejsou žádné kontakty. Přidejte nějaký.
       </p>
       <Link
-        className=" flex items-center justify-center mt-[32px] w-full h-[56px] bg-[#5DD661] rounded-[16px] text-white text-[16px] "
+        className=" flex items-center justify-center mt-[32px] w-full h-[56px] bg-[#5DD661] rounded-[16px] text-white text-[16px] hover:bg-[#6ef573] active:bg-[#34cc39]"
         href="/add"
       >
         Přidat kontakt

@@ -75,13 +75,10 @@ const AddNewContact: FC<AddNewContactProps> = ({
     <div className="w-full flex flex-col ">
       <header className="w-full h-[48px] border-b-2 border-gray-300 flex justify-center items-center">
         <h3>Přidat kontakt</h3>
-        <Link
-          href="/"
-          // potřeba opravit
-          className="absolute flex items-center justify-center right-[8px] top-[4px] w-[64px] h-[40px] cursor-pointer border-none bg-transparent"
-          id="cancel"
-        >
-          Zrušit
+        <Link href={`/`}>
+          <button className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
+            Zrušit
+          </button>
         </Link>
       </header>
 
