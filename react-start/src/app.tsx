@@ -73,7 +73,6 @@ const App = () => {
       navigate(`/${contacts[0].id}`);
     }
   }
-  console.log(activeContactID);
   return (
     <div className="flex">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
@@ -116,7 +115,7 @@ const App = () => {
                     className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px]  cursor-pointer ${
                       activeContactID == contactFragment.id
                         ? "bg-[#5DD661] text-white hover:bg-[#34cc39] "
-                        : "hover:bg-[#daf6db]"
+                        : "hover:bg-[#cffcd1]"
                     }`}
                   >
                     {contactFragment.name}
@@ -133,7 +132,6 @@ const App = () => {
         <Route path="/add">
           <AddNewContact
             setActiveContactIdFunc={setActiveContactID}
-            cancelFunc={cancelFunc}
             onAddFunc={onAdd}
           ></AddNewContact>
         </Route>

@@ -1,15 +1,13 @@
 import AddValueInput from "../components/AddValueInput";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { FC, useState } from "react";
 interface AddNewContactProps {
   onAddFunc: any;
-  cancelFunc: any;
   setActiveContactIdFunc: any;
 }
 
 const AddNewContact: FC<AddNewContactProps> = ({
   onAddFunc,
-  cancelFunc,
   setActiveContactIdFunc,
 }) => {
   const [name, setName] = useState("");
@@ -77,13 +75,14 @@ const AddNewContact: FC<AddNewContactProps> = ({
     <div className="w-full flex flex-col ">
       <header className="w-full h-[48px] border-b-2 border-gray-300 flex justify-center items-center">
         <h3>Přidat kontakt</h3>
-        <button
-          onClick={cancelFunc}
-          className="absolute right-[8px] top-[4px] w-[64px] h-[40px] cursor-pointer border-none bg-transparent"
+        <Link
+          href="/"
+          // potřeba opravit
+          className="absolute flex items-center justify-center right-[8px] top-[4px] w-[64px] h-[40px] cursor-pointer border-none bg-transparent"
           id="cancel"
         >
           Zrušit
-        </button>
+        </Link>
       </header>
 
       <main className="px-[172px] flex flex-col gap-[16px]">
@@ -117,7 +116,7 @@ const AddNewContact: FC<AddNewContactProps> = ({
         />
         <button
           onClick={handleClick}
-          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] text-white rounded-[16px] border-none "
+          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] text-white rounded-[16px] border-none hover:bg-[#6ef573] active:bg-[#34cc39] "
         >
           Přidat kontakt
         </button>
