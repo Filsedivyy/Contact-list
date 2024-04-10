@@ -73,13 +73,13 @@ const App = () => {
       navigate(`/${contacts[0].id}`);
     }
   }
-
+  console.log(activeContactID);
   return (
     <div className="flex">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
         <header className="py-[4px] px-[8px] border-b-2 border-gray-300 flex justify-center items-center h-[48px]">
           <h3>Kontakty</h3>
-          <button className="absolute top-[4px] right-[4px] h-[40px] w-[40px] flex items-center justify-center cursor-pointer border-none">
+          <button className="absolute top-[4px] right-[4px] h-[40px] w-[40px] flex items-center justify-center cursor-pointer border-none hover:opacity-60  focus:opacity-100">
             <Link href="/add">
               <img src="./icon.svg" alt="" />
             </Link>
@@ -113,10 +113,10 @@ const App = () => {
               .map((contactFragment: { id: number; name: string }) => (
                 <Link href={`/${contactFragment.id}`} key={contactFragment.id}>
                   <li
-                    className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px] hover:bg-[#daf6db] cursor-pointer ${
-                      activeContactID === contactFragment.id
-                        ? "bg-[#5DD661] text-white hover:bg-[#127615] "
-                        : ""
+                    className={`border-b border-solid border-gray-300 pl-[16px] pt-[14px] pb-[16px] text-[14px] leading-[20px]  cursor-pointer ${
+                      activeContactID == contactFragment.id
+                        ? "bg-[#5DD661] text-white hover:bg-[#34cc39] "
+                        : "hover:bg-[#daf6db]"
                     }`}
                   >
                     {contactFragment.name}

@@ -13,9 +13,9 @@ const ContactDetail: React.FC<ContactDetailProps> = ({
     <div className="flex flex-col items-center w-full">
       <header className="w-full flex items-center justify-center h-[48px] border-b-2 border-gray-300 py-[4px]">
         <h2>{contact.name}</h2>
-        <div className="flex gap-[8px] absolute right-[8px] top-[4px]">
+        <div className="flex gap-[8px] absolute right-[14px] top-[4px]">
           <Link
-            className="size-[40px] p-[8px] flex items-center justify-center"
+            className="size-[40px] p-[8px] flex items-center justify-center hover:opacity-60  focus:opacity-100"
             onClick={() => {
               deleteContact(contact.id);
             }}
@@ -24,7 +24,7 @@ const ContactDetail: React.FC<ContactDetailProps> = ({
             <img src="./delete.svg" alt="" />
           </Link>
           <Link href={`${contact.id}/edit`}>
-            <button className="size-[40px] p-[8px] flex items-center justify-center">
+            <button className="size-[40px] p-[8px] flex items-center justify-center  hover:opacity-60  focus:opacity-100 ">
               <img src="./edit.svg" alt="" />
             </button>
           </Link>

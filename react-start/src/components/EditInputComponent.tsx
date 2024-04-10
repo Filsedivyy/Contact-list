@@ -29,12 +29,12 @@ const EditInputComponent: React.FC<EditInputProps> = ({
           }}
           className="size-[40px] flex items-center justify-center p-[8px]"
         >
-          <img src="delete-content.svg" alt="" />
+          <img src="../public/delete-content.svg" alt="" />
         </button>
       </div>
       {error && (
         <p className="opacity-100 text-red-500 flex items-center gap-[6px]">
-          <img className="w-[20px] h-[20px]" src="error.svg"></img>
+          <img className="w-[20px] h-[20px]" src="../public/error.svg"></img>
           {error}
         </p>
       )}

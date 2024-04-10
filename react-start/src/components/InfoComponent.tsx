@@ -15,7 +15,6 @@ const InfoComponent: React.FC<InfoComponentProps> = ({ img, type, value }) => {
     setTimeout(() => setCopied(false), 1500);
   };
 
-
   return (
     <div className="w-full border-b border-solid border-[#E3E3E3] flex items-center justify-between py-[14px] pl-[16px]">
       <div className="flex gap-[14px] items-center">
@@ -26,7 +25,7 @@ const InfoComponent: React.FC<InfoComponentProps> = ({ img, type, value }) => {
         </div>
       </div>
       <CopyToClipboard text={value} onCopy={handleCopy}>
-        <button className="h-[40px] w-[40px]">
+        <button className="h-[40px] w-[40px] hover:opacity-60  focus:opacity-100">
           <img src="copy.svg" alt="Copy" />
         </button>
       </CopyToClipboard>
