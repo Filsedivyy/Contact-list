@@ -17,6 +17,7 @@ const AddNewContact: FC<AddNewContactProps> = ({
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [fetchError, setFetchError] = useState("Přidat kontakt");
 
   const [location, navigate] = useLocation();
 
@@ -41,9 +42,13 @@ const AddNewContact: FC<AddNewContactProps> = ({
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log(responseData.id);
-      onAddFunc();
-      navigate(`/${responseData.id}`);
+      setFetchError("Odesláno");
+      setTimeout(() => {
+        onAddFunc();
+        navigate(`/${responseData.id}`);
+      }, 400);
+    } else {
+      console.log(response.status);
     }
   }
 
@@ -65,6 +70,7 @@ const AddNewContact: FC<AddNewContactProps> = ({
       phone.length == 0 ||
       !phoneNumRegex.test(phone)
     ) {
+      setFetchError("Chyba odeslání");
       return;
     } else {
       addContactToDB(name.trim(), email.trim(), Number(phone));
@@ -115,7 +121,7 @@ const AddNewContact: FC<AddNewContactProps> = ({
           onClick={handleClick}
           className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] text-white rounded-[16px] border-none hover:bg-[#6ef573] active:bg-[#34cc39] "
         >
-          Přidat kontakt
+          {fetchError}
         </button>
       </main>
     </div>

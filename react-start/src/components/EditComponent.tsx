@@ -17,6 +17,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [fetchError, setFetchError] = useState("Uložit změny");
 
   const [location, navigate] = useLocation();
   const phoneNumRegex = /^\d+$/;
@@ -43,11 +44,13 @@ const EditComponent: React.FC<EditComponentProps> = ({
       });
 
       if (response.ok) {
-        navigate(`/${contact.id}`);
-        taskHandler();
+        setFetchError("Uloženo");
+        setTimeout(() => {
+          navigate(`/${contact.id}`);
+          taskHandler();
+        }, 400);
       } else {
-        console.log(JSON.stringify(sendingData));
-        console.error("Chyba při odesílání HTTP požadavku:", response.status);
+        return;
       }
     } catch (error) {
       console.error("Chyba při zpracování HTTP požadavku:", error);
@@ -71,7 +74,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
       !email.includes("@") ||
       phone.length == 0 ||
       !phoneNumRegex.test(phone)
-    ) {
+    ) { 
     } else {
       editContact(name, email, phone, contact.id);
     }
@@ -129,7 +132,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
           className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white  hover:bg-[#6ef573] active:bg-[#34cc39]"
           onClick={saveEdit}
         >
-          Uložit změny
+          {fetchError}
         </button>
       </main>
     </div>
