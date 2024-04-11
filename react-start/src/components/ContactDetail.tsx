@@ -14,15 +14,14 @@ const ContactDetail: React.FC<ContactDetailProps> = ({
       <header className="w-full flex items-center justify-center h-[48px] border-b-2 border-gray-300 py-[4px]">
         <h2>{contact.name}</h2>
         <div className="flex gap-[8px] absolute right-[14px] top-[4px]">
-          <Link
+          <button
             className="size-[40px] p-[8px] flex items-center justify-center hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]"
             onClick={() => {
               deleteContact(contact.id);
             }}
-            href="/"
           >
             <img src="./delete.svg" alt="" />
-          </Link>
+          </button>
           <Link href={`${contact.id}/edit`}>
             <button className="size-[40px] p-[8px] flex items-center justify-center hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
               <img src="./edit.svg" alt="" />

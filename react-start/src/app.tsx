@@ -54,7 +54,7 @@ const App = () => {
 
     const response = await fetchContacts();
     if (!response || response.length === 0) {
-      navigate("/");
+      navigate("/welcome");
     } else {
       navigate(`/${response[0].id}`);
     }
@@ -128,10 +128,13 @@ const App = () => {
         <Switch>
           <Route path="/">
             {contacts === null ? (
-              <EmptyContactPage />
+              <Redirect href="/welcome" />
             ) : (
               <Redirect href={`/${contacts[0].id}`} />
             )}
+          </Route>
+          <Route path="/welcome">
+            <EmptyContactPage />
           </Route>
           <Route path="/add">
             <AddNewContact
