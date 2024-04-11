@@ -4,11 +4,13 @@ import { FC, useState } from "react";
 interface AddNewContactProps {
   onAddFunc: any;
   setActiveContactIdFunc: any;
+  cancelFunc: any;
 }
 
 const AddNewContact: FC<AddNewContactProps> = ({
   onAddFunc,
   setActiveContactIdFunc,
+  cancelFunc,
 }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -81,11 +83,12 @@ const AddNewContact: FC<AddNewContactProps> = ({
     <div className="w-full flex flex-col ">
       <header className="w-full h-[48px] border-b-2 border-gray-300 flex justify-center items-center">
         <h3>Přidat kontakt</h3>
-        <Link href={`/`}>
-          <button className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
-            Zrušit
-          </button>
-        </Link>
+        <button
+          onClick={cancelFunc}
+          className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]"
+        >
+          Zrušit
+        </button>
       </header>
 
       <main className="px-[172px] flex flex-col gap-[16px]">

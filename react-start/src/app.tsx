@@ -51,16 +51,25 @@ const App = () => {
     await fetch(`http://localhost:7070/delete/${id}`, {
       method: "DELETE",
     });
-    cancelFunc(await fetchContacts());
+    deleteFunc(await fetchContacts());
   }
 
-  function cancelFunc(contacts: ContactFragment[]) {
-    if (contacts.length == 0) {
+  function deleteFunc(contacts: ContactFragment[]) {
+    if (!contacts || contacts.length === 0) {
       navigate("/");
     } else {
       navigate(`/${contacts[0].id}`);
     }
   }
+
+  function cancelFunc() {
+    if (!contacts || contacts.length === 0) {
+      navigate("/");
+    } else {
+      navigate(`/${contacts[0].id}`);
+    }
+  }
+
   return (
     <div className="flex">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
@@ -123,6 +132,7 @@ const App = () => {
           <AddNewContact
             setActiveContactIdFunc={setActiveContactID}
             onAddFunc={onAdd}
+            cancelFunc={cancelFunc}
           ></AddNewContact>
         </Route>
         <Route path="/:id/edit">
