@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-const LandingPageComponent = () => {
+const EmptyContactPage = () => {
   return (
     <div className="w-full px-[172px] pt-[48px]">
       <h2 className="mt-[32px]">Žádné kontakty</h2>
@@ -16,4 +16,4 @@ const LandingPageComponent = () => {
     </div>
   );
 };
-export default LandingPageComponent;
+export default EmptyContactPage;

@@ -4,6 +4,7 @@ import ContactDetail from "../components/ContactDetail";
 import EditComponent from "../components/EditComponent";
 import { ContactInfo } from "../app";
 import LoadingComponent from "../components/Loading";
+import ErrorPage from "./ErrorPage";
 
 interface ContactPageProps {
   onAddFunc: any;
@@ -16,21 +17,40 @@ const ContactPage: React.FC<ContactPageProps> = ({
   setActiveContactIdFunc,
   deleteContact,
 }) => {
-  const [contactDetail, setContactDetail] = useState<ContactInfo | undefined>();
+  const [contactDetail, setContactDetail] = useState<ContactInfo | null>(null);
   const params = useParams<{ id: string }>();
   const [isEditing] = useRoute(`/${params.id}/edit`);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [status, setStatus] = useState<number | null>(null);
 
   useEffect(() => {
     fetchContactInfo();
   }, [params.id]);
 
   async function fetchContactInfo() {
-    const response = await fetch(`http://localhost:7070/contact/${params.id}`, {
-      method: "GET",
-    });
-    const data = await response.json();
-    setContactDetail(data);
-    setActiveContactIdFunc(data.id);
+    setLoading(true);
+    setError(false);
+
+    try {
+      const response = await fetch(
+        `http://localhost:7070/contact/${params.id}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setContactDetail(data);
+        setActiveContactIdFunc(data.id);
+      } else {
+        setStatus(response.status);
+        setError(true);
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   function onAdd() {
@@ -38,8 +58,8 @@ const ContactPage: React.FC<ContactPageProps> = ({
     fetchContactInfo();
   }
 
-  if (!contactDetail) return <LoadingComponent />;
-
+  if (loading) return <LoadingComponent />;
+  if (error) return <ErrorPage errorStatus={status} />;
   return isEditing ? (
     <EditComponent contact={contactDetail} taskHandler={onAdd} />
   ) : (

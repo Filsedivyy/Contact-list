@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import AddNewContact from "./pages/AddNewContact";
 import ContactPage from "./pages/ContactPage";
-import LandingPageComponent from "./pages/LandingPage";
+import EmptyContactPage from "./pages/EmptyContactPage";
 import LoadingComponent from "./components/Loading";
+import HomePage from "./pages/HomePage";
+
 export interface ContactFragment {
   id: number;
   name: string;
@@ -67,7 +69,7 @@ const App = () => {
           <h3>Kontakty</h3>
           <Link href={"/add"}>
             <button className="absolute right-[14px] top-[4px] size-[40px] p-[8px] flex items-center justify-center hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
-              <img src="./icon.svg" alt="" />
+              <img src="../icon.svg" alt="" />
             </button>
           </Link>
         </header>
@@ -116,7 +118,7 @@ const App = () => {
       </div>
       <Switch>
         <Route path="/">
-          <LandingPageComponent />
+          {contacts === null ? <EmptyContactPage /> : <HomePage />}
         </Route>
         <Route path="/add">
           <AddNewContact
