@@ -4,6 +4,7 @@ import AddNewContact from "./pages/AddNewContact";
 import ContactPage from "./pages/ContactPage";
 import EmptyContactPage from "./pages/EmptyContactPage";
 import LoadingComponent from "./components/Loading";
+import ErrorPage from "./pages/ErrorPage";
 
 export interface ContactFragment {
   id: number;
@@ -155,6 +156,9 @@ const App = () => {
               setActiveContactIdFunc={setActiveContactID}
               onAddFunc={onAdd}
             />
+          </Route>
+          <Route path="/:id/*">
+            <ErrorPage errorStatus={"Stránka neexistuje"} />
           </Route>
         </Switch>
       )}

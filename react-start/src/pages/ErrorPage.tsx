@@ -1,5 +1,5 @@
 interface ErrorPageProps {
-  errorStatus: number;
+  errorStatus: number | string;
 }
 
 const ErrorPage: React.FC<ErrorPageProps> = ({ errorStatus }) => {
