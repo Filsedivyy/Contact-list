@@ -158,7 +158,7 @@ const App = () => {
             />
           </Route>
           <Route path="/:id/*">
-            <ErrorPage errorStatus={"Stránka neexistuje"} />
+            <ErrorPage errorStatus={" Stránka neexistuje"} />
           </Route>
         </Switch>
       )}
