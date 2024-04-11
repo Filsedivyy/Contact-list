@@ -33,7 +33,6 @@ const App = () => {
   useEffect(() => {
     fetchContacts();
   }, []);
-  //test
   async function fetchContacts(): Promise<ContactFragment[]> {
     const response = await fetch("http://localhost:7070/contact/id/name", {
       method: "GET",
