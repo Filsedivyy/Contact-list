@@ -1,5 +1,5 @@
 import AddValueInput from "../components/AddValueInput";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { FC, useState } from "react";
 interface AddNewContactProps {
   onAddFunc: any;

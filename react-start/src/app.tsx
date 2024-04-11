@@ -4,7 +4,6 @@ import AddNewContact from "./pages/AddNewContact";
 import ContactPage from "./pages/ContactPage";
 import EmptyContactPage from "./pages/EmptyContactPage";
 import LoadingComponent from "./components/Loading";
-import HomePage from "./pages/HomePage";
 
 export interface ContactFragment {
   id: number;
