@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route, Switch, useLocation } from "wouter";
+import { Link, Redirect, Route, Switch, useLocation } from "wouter";
 import AddNewContact from "./pages/AddNewContact";
 import ContactPage from "./pages/ContactPage";
 import EmptyContactPage from "./pages/EmptyContactPage";
@@ -51,14 +51,12 @@ const App = () => {
     await fetch(`http://localhost:7070/delete/${id}`, {
       method: "DELETE",
     });
-    deleteFunc(await fetchContacts());
-  }
 
-  function deleteFunc(contacts: ContactFragment[]) {
-    if (!contacts || contacts.length === 0) {
+    const response = await fetchContacts();
+    if (!response || response.length === 0) {
       navigate("/");
     } else {
-      navigate(`/${contacts[0].id}`);
+      navigate(`/${response[0].id}`);
     }
   }
 
@@ -124,32 +122,40 @@ const App = () => {
           </ul>
         )}
       </div>
-      <Switch>
-        <Route path="/">
-          {contacts === null ? <EmptyContactPage /> : <HomePage />}
-        </Route>
-        <Route path="/add">
-          <AddNewContact
-            setActiveContactIdFunc={setActiveContactID}
-            onAddFunc={onAdd}
-            cancelFunc={cancelFunc}
-          ></AddNewContact>
-        </Route>
-        <Route path="/:id/edit">
-          <ContactPage
-            deleteContact={deleteContactFromDb}
-            setActiveContactIdFunc={setActiveContactID}
-            onAddFunc={onAdd}
-          />
-        </Route>
-        <Route path="/:id">
-          <ContactPage
-            deleteContact={deleteContactFromDb}
-            setActiveContactIdFunc={setActiveContactID}
-            onAddFunc={onAdd}
-          />
-        </Route>
-      </Switch>
+      {isLoading ? (
+        <LoadingComponent />
+      ) : (
+        <Switch>
+          <Route path="/">
+            {contacts === null ? (
+              <EmptyContactPage />
+            ) : (
+              <Redirect href={`/${contacts[0].id}`} />
+            )}
+          </Route>
+          <Route path="/add">
+            <AddNewContact
+              setActiveContactIdFunc={setActiveContactID}
+              onAddFunc={onAdd}
+              cancelFunc={cancelFunc}
+            ></AddNewContact>
+          </Route>
+          <Route path="/:id/edit">
+            <ContactPage
+              deleteContact={deleteContactFromDb}
+              setActiveContactIdFunc={setActiveContactID}
+              onAddFunc={onAdd}
+            />
+          </Route>
+          <Route path="/:id">
+            <ContactPage
+              deleteContact={deleteContactFromDb}
+              setActiveContactIdFunc={setActiveContactID}
+              onAddFunc={onAdd}
+            />
+          </Route>
+        </Switch>
+      )}
     </div>
   );
 };
