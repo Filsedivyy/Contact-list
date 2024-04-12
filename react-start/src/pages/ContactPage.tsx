@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useRoute } from "wouter";
+import { Redirect, useParams, useRoute } from "wouter";
 import ContactDetail from "../components/ContactDetail";
 import EditComponent from "../components/EditComponent";
 import { ContactInfo } from "../app";
@@ -59,7 +59,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
   }
 
   if (loading) return <LoadingComponent />;
-  if (error) return <ErrorPage errorStatus={status} />;
+  if (error) return <Redirect href="/error" />;
   return isEditing ? (
     <EditComponent contact={contactDetail} taskHandler={onAdd} />
   ) : (

@@ -67,14 +67,20 @@ const App = () => {
       navigate(`/${contacts[0].id}`);
     }
   }
+  // opravit error aby fungoval, opravit error state, pokud je v url id i neco jineho (regex)
 
   return (
     <div className="flex">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
         <header className="py-[4px] px-[8px] border-b-2 border-gray-300 flex justify-center items-center h-[48px]">
-          <h3>Kontakty</h3>
+          <button
+            className="pl-[6px] pr-[6px] hover:opacity-70 hover:border-b-2 rounded-[16px] hover:border-black active:border-b-2   active:border-[#5DD661]"
+            onClick={cancelFunc}
+          >
+            Kontakty
+          </button>
           <Link href={"/add"}>
-            <button className="absolute right-[14px] top-[4px] size-[40px] p-[8px] flex items-center justify-center hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
+            <button className="absolute right-[14px] top-[4px] size-[40px] p-[8px] flex items-center justify-center hover:opacity-70 hover:border-b-2 rounded-[16px] hover:border-black active:border-b-2   active:border-[#5DD661]">
               <img src="../icon.svg" alt="" />
             </button>
           </Link>
@@ -136,6 +142,9 @@ const App = () => {
           <Route path="/welcome">
             <EmptyContactPage />
           </Route>
+          <Route path="/error">
+            <ErrorPage />
+          </Route>
           <Route path="/add">
             <AddNewContact
               setActiveContactIdFunc={setActiveContactID}
@@ -157,8 +166,9 @@ const App = () => {
               onAddFunc={onAdd}
             />
           </Route>
+
           <Route path="/:id/*">
-            <ErrorPage errorStatus={" Stránka neexistuje"} />
+            <Redirect href="/error" />
           </Route>
         </Switch>
       )}
