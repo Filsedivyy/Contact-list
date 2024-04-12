@@ -4,7 +4,6 @@ import ContactDetail from "../components/ContactDetail";
 import EditComponent from "../components/EditComponent";
 import { ContactInfo } from "../app";
 import LoadingComponent from "../components/Loading";
-import ErrorPage from "./ErrorPage";
 
 interface ContactPageProps {
   onAddFunc: any;
@@ -22,7 +21,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
   const [isEditing] = useRoute(`/${params.id}/edit`);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [status, setStatus] = useState<number | null>(null);
+  const phoneNumRegex = /^\d+$/;
 
   useEffect(() => {
     fetchContactInfo();
@@ -31,6 +30,12 @@ const ContactPage: React.FC<ContactPageProps> = ({
   async function fetchContactInfo() {
     setLoading(true);
     setError(false);
+
+    if (!phoneNumRegex.test(params.id)) {
+      console.error("ID není platné číslo.");
+      setLoading(false);
+      setError(true);
+    }
 
     try {
       const response = await fetch(
@@ -45,7 +50,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
         setContactDetail(data);
         setActiveContactIdFunc(data.id);
       } else {
-        setStatus(response.status);
+        console.log(response.status);
         setError(true);
       }
     } finally {
