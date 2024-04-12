@@ -65,7 +65,18 @@ const App = () => {
     if (!contacts || contacts.length === 0) {
       navigate("/");
     } else {
-      navigate(`/${contacts[0].id}`);
+      if (filterInputValue === "") {
+        navigate(`/${contacts[0].id}`);
+      } else {
+        const filteredContact = contacts.find((contact) =>
+          contact.name.toLowerCase().includes(filterInputValue.toLowerCase())
+        );
+        if (filteredContact) {
+          navigate(`/${filteredContact.id}`);
+        } else {
+          navigate("/");
+        }
+      }
     }
   }
 
@@ -103,7 +114,7 @@ const App = () => {
             <button
               className={`w-[50px] flex items-center justify-center border-2 rounded-[9px] ${
                 sorted
-                  ? "border-[#5DD661] hover:border-gray-300 active:border-[#5DD661]"
+                  ? "border-[#5DD661] text-white bg-[#5DD661] hover:border-gray-300 hover:bg-gray-300 active:border-[#5DD661]"
                   : "border-black hover:border-gray-300 active:border-[#5DD661]"
               }`}
               onClick={toggleSort}
