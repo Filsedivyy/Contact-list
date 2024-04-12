@@ -32,7 +32,6 @@ const ContactPage: React.FC<ContactPageProps> = ({
     setError(false);
 
     if (!phoneNumRegex.test(params.id)) {
-      console.error("ID není platné číslo.");
       setLoading(false);
       setError(true);
     }
@@ -50,7 +49,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
         setContactDetail(data);
         setActiveContactIdFunc(data.id);
       } else {
-        console.log(response.status);
+        console.error(response.status);
         setError(true);
       }
     } finally {

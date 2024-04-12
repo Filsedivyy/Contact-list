@@ -75,7 +75,10 @@ const App = () => {
         <header className="py-[4px] px-[8px] border-b-2 border-gray-300 flex justify-center items-center h-[48px]">
           <button
             className="pl-[6px] pr-[6px] hover:opacity-70 hover:border-b-2 rounded-[16px] hover:border-black active:border-b-2   active:border-[#5DD661]"
-            onClick={cancelFunc}
+            onClick={() => {
+              cancelFunc();
+              setInputValue("");
+            }}
           >
             Kontakty
           </button>
