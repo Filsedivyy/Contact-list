@@ -25,6 +25,7 @@ const App = () => {
   const [filterInputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [location, navigate] = useLocation();
+  const [sorted, setSorted] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
@@ -67,7 +68,15 @@ const App = () => {
       navigate(`/${contacts[0].id}`);
     }
   }
-  // opravit error aby fungoval, opravit error state, pokud je v url id i neco jineho (regex)
+
+  function toggleSort() {
+    if (sorted) {
+      setContacts([...contacts].sort((a, b) => a.id - b.id));
+    } else {
+      setContacts([...contacts].sort((a, b) => a.name.localeCompare(b.name)));
+    }
+    setSorted(!sorted);
+  }
 
   return (
     <div className="flex">
@@ -89,7 +98,20 @@ const App = () => {
           </Link>
         </header>
         <div className="pt-[32px] pb-[8px] px-[16px] flex flex-col gap-[16px]">
-          <h2>Kontakty</h2>
+          <div className="flex justify-between">
+            <h2>Kontakty</h2>
+            <button
+              className={`w-[50px] flex items-center justify-center border-2 rounded-[9px] ${
+                sorted
+                  ? "border-[#5DD661] hover:border-gray-300 active:border-[#5DD661]"
+                  : "border-black hover:border-gray-300 active:border-[#5DD661]"
+              }`}
+              onClick={toggleSort}
+            >
+              ABC
+            </button>
+          </div>
+
           <input
             className="w-full h-[48px] py-[16px] px-[14px] border-2 border-gray-300 rounded-[14px]"
             type="text"
