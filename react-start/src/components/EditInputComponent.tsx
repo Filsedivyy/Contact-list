@@ -1,9 +1,9 @@
 interface EditInputProps {
-  onInputChange: any;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   value: string;
   error: string;
-  clearInput: any;
+  clearInput: () => void;
 }
 
 const EditInputComponent: React.FC<EditInputProps> = ({

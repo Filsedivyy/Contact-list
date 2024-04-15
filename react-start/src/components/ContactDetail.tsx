@@ -1,8 +1,10 @@
 import InfoComponent from "./InfoComponent";
 import { Link } from "wouter";
+import { ContactInfo } from "../app";
+
 interface ContactDetailProps {
-  contact: any;
-  deleteContact: any;
+  contact: ContactInfo;
+  deleteContact: (id: number) => Promise<void>;
 }
 
 const ContactDetail: React.FC<ContactDetailProps> = ({

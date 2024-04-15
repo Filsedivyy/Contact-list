@@ -3,8 +3,8 @@ import React from "react";
 interface AddValueInputProps {
   name: string;
   error: string;
-  inputValue: any;
-  onInputChange: any;
+  inputValue: string;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const AddValueInput: React.FC<AddValueInputProps> = ({
