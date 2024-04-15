@@ -67,7 +67,7 @@ const ContactPage: React.FC<ContactPageProps> = ({
   return isEditing ? (
     <EditComponent contact={contactDetail} taskHandler={onAdd} />
   ) : (
-    <ContactDetail deleteContact={deleteContact} contact={contactDetail} />
+    <ContactDetail contact={contactDetail} deleteContact={deleteContact} />
   );
 };
 

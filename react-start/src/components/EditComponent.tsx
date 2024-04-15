@@ -1,9 +1,9 @@
 import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-
+import { ContactInfo } from "../app";
 interface EditComponentProps {
-  contact: any;
+  contact: ContactInfo;
   taskHandler: () => void;
 }
 const EditComponent: React.FC<EditComponentProps> = ({
@@ -74,9 +74,9 @@ const EditComponent: React.FC<EditComponentProps> = ({
       !email.includes("@") ||
       phone.length == 0 ||
       !phoneNumRegex.test(phone)
-    ) { 
+    ) {
     } else {
-      editContact(name, email, phone, contact.id);
+      editContact(name, email, Number(phone), contact.id);
     }
   }
 

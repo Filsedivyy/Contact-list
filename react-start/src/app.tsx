@@ -98,7 +98,7 @@ const App = () => {
             onClick={() => {
               cancelFunc();
               setInputValue("");
-              setSorted(false);
+              toggleSort();
             }}
           >
             Kontakty
