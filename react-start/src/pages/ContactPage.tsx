@@ -8,7 +8,7 @@ import LoadingComponent from "../components/Loading";
 interface ContactPageProps {
   onAddFunc: () => void;
   setActiveContactIdFunc: (id: number) => void;
-  deleteContact: any;
+  deleteContact: (id: number) => Promise<void>;
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({
