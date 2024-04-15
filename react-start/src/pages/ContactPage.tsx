@@ -6,8 +6,8 @@ import { ContactInfo } from "../app";
 import LoadingComponent from "../components/Loading";
 
 interface ContactPageProps {
-  onAddFunc: any;
-  setActiveContactIdFunc: any;
+  onAddFunc: () => void;
+  setActiveContactIdFunc: (id: number) => void;
   deleteContact: any;
 }
 

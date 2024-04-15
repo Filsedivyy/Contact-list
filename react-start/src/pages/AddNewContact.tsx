@@ -2,9 +2,9 @@ import AddValueInput from "../components/AddValueInput";
 import { useLocation } from "wouter";
 import { FC, useState } from "react";
 interface AddNewContactProps {
-  onAddFunc: any;
-  setActiveContactIdFunc: any;
-  cancelFunc: any;
+  onAddFunc: () => void;
+  setActiveContactIdFunc: (id: number) => void;
+  cancelFunc: () => void;
 }
 
 const AddNewContact: FC<AddNewContactProps> = ({

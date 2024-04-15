@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 interface InfoComponentProps {
-  img: any;
+  img: string;
   type: string;
-  value: any;
+  value: string;
 }
 
 const InfoComponent: React.FC<InfoComponentProps> = ({ img, type, value }) => {
