@@ -7,7 +7,7 @@ import LoadingComponent from "./components/Loading";
 import ErrorPage from "./pages/ErrorPage";
 
 // pokud přidám kontakt, neseřadí se podle řazení
-
+// to stejné při mazání
 export interface ContactFragment {
   id: number;
   name: string;
@@ -36,11 +36,22 @@ const App = () => {
   useEffect(() => {
     fetchContacts();
   }, []);
+
+  useEffect(() => {
+    fetchContacts();
+  }, [sorted]);
+
   async function fetchContacts(): Promise<ContactFragment[]> {
     const response = await fetch("http://localhost:7070/contact/id/name", {
       method: "GET",
     });
     const data: ContactInfo[] = await response.json();
+
+    if (sorted) {
+      data.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      data.sort((a, b) => a.id - b.id);
+    }
     setContacts(data);
     setIsLoading(false);
     return data;
@@ -82,19 +93,6 @@ const App = () => {
     }
   }
 
-  function toggleSort() {
-    if (sorted) {
-      setContacts([...contacts].sort((a, b) => a.id - b.id));
-    } else {
-      setContacts([...contacts].sort((a, b) => a.name.localeCompare(b.name)));
-    }
-    setSorted(!sorted);
-  }
-  function resetSort() {
-    setSorted(false);
-    setContacts([...contacts].sort((a, b) => a.id - b.id));
-  }
-
   return (
     <div className="flex">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
@@ -104,7 +102,7 @@ const App = () => {
             onClick={() => {
               cancelFunc();
               setInputValue("");
-              resetSort();
+              setSorted(false);
             }}
           >
             Kontakty
@@ -124,7 +122,9 @@ const App = () => {
                   ? "border-[#5DD661] text-white bg-[#5DD661] hover:border-gray-300 hover:bg-gray-300 active:border-[#5DD661]"
                   : "border-black hover:border-gray-300 active:border-[#5DD661]"
               }`}
-              onClick={toggleSort}
+              onClick={() => {
+                setSorted(!sorted);
+              }}
             >
               ABC
             </button>
