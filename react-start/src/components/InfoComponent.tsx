@@ -20,7 +20,7 @@ const InfoComponent: React.FC<InfoComponentProps> = ({ img, type, value }) => {
       <div className="flex gap-[14px] items-center">
         <img src={img} alt="" />
         <div className="flex flex-col gap-[2px] h-fit">
-          <h3 className="text-[14px]">{type}</h3>
+          <h3 className="text-[14px]  font-[700]">{type}</h3>
           <p className="text-[14px] text-[#545454]">{value}</p>
         </div>
       </div>

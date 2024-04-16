@@ -6,8 +6,9 @@ import EmptyContactPage from "./pages/EmptyContactPage";
 import LoadingComponent from "./components/Loading";
 import ErrorPage from "./pages/ErrorPage";
 
-// pokud přidám kontakt, neseřadí se podle řazení
-// to stejné při mazání
+//nastavit minwidth-950px
+//importovat font
+
 export interface ContactFragment {
   id: number;
   name: string;
@@ -94,15 +95,15 @@ const App = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex font-Monserrat font-[500]">
       <div className="relative h-screen max-w-[400px] min-w-[400px] border-r-2 border-gray-300">
         <header className="py-[4px] px-[8px] border-b-2 border-gray-300 flex justify-center items-center h-[48px]">
           <button
-            className="pl-[6px] pr-[6px] hover:opacity-70 hover:border-b-2 rounded-[16px] hover:border-black active:border-b-2   active:border-[#5DD661]"
+            className="font-[700] pl-[6px] pr-[6px] hover:opacity-70 hover:border-b-2 rounded-[16px] hover:border-black active:border-b-2   active:border-[#5DD661]"
             onClick={() => {
-              cancelFunc();
               setInputValue("");
               setSorted(false);
+              cancelFunc();
             }}
           >
             Kontakty
@@ -115,7 +116,7 @@ const App = () => {
         </header>
         <div className="pt-[32px] pb-[8px] px-[16px] flex flex-col gap-[16px]">
           <div className="flex justify-between">
-            <h2>Kontakty</h2>
+            <h2 className="font-Monserrat font-[700]">Kontakty</h2>
             <button
               className={`w-[50px] flex items-center justify-center border-2 rounded-[9px] ${
                 sorted

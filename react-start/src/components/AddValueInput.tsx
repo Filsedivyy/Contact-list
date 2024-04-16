@@ -15,9 +15,9 @@ const AddValueInput: React.FC<AddValueInputProps> = ({
 }) => {
   return (
     <div className="w-full flex flex-col gap-[8px]">
-      <p className="text-[14px]">{name}</p>
+      <p className="text-[14px] font-[700]">{name}</p>
       <input
-        className={`h-[48px] px-[16px] py-[14px] rounded-[14px] border-[1px] border-solid ${
+        className={` h-[48px] px-[16px] py-[14px] rounded-[14px] border-[1px] border-solid ${
           error ? "border-[2px] border-red-500" : "border-rgb(227, 227, 227)"
         } focus: outline-1 outline-[#5DD661]`}
         type="text"

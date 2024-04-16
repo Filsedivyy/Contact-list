@@ -3,7 +3,7 @@ import { Link } from "wouter";
 const EmptyContactPage = () => {
   return (
     <div className="w-full px-[172px] pt-[48px]">
-      <h2 className="mt-[32px]">Žádné kontakty</h2>
+      <h1 className="font-[700] mt-[32px]">Žádné kontakty</h1>
       <p className="mt-[16px]">
         V listu momentálně nejsou žádné kontakty. Přidejte nějaký.
       </p>

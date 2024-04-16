@@ -86,7 +86,7 @@ const AddNewContact: FC<AddNewContactProps> = ({
   return (
     <div className="w-full flex flex-col ">
       <header className="w-full h-[48px] border-b-2 border-gray-300 flex justify-center items-center">
-        <h3>Přidat kontakt</h3>
+        <h3 className="font-[700]">Přidat kontakt</h3>
         <button
           onClick={cancelFunc}
           className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]"
@@ -96,7 +96,9 @@ const AddNewContact: FC<AddNewContactProps> = ({
       </header>
 
       <main className="px-[172px] flex flex-col gap-[16px]">
-        <h2 className="mt-[32px] mb-[16px]">Přidat kontakt</h2>
+        <h1 className="text-[22px] mt-[32px] mb-[16px] font-[700]">
+          Přidat kontakt
+        </h1>
         <AddValueInput
           inputValue={name}
           onInputChange={(e) => {

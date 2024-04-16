@@ -81,9 +81,9 @@ const EditComponent: React.FC<EditComponentProps> = ({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <header className="w-full flex items-center justify-center h-[48px] border-b-2 border-gray-300 py-[4px]">
-        <h3> Upravit kontakt</h3>
+        <h3 className="font-[700]"> Upravit kontakt</h3>
         <Link href={`/${contact.id}`}>
           <button className="absolute right-[14px] top-[4px] w-[64px] h-[40px] hover:opacity-70 active:border-b-2 rounded-[16px]  border-[#5DD661]">
             Zrušit
@@ -91,7 +91,7 @@ const EditComponent: React.FC<EditComponentProps> = ({
         </Link>
       </header>
       <main className="px-[172px] pt-[32px] flex flex-col gap-[16px]">
-        <h1 className="mb-[16px]">Upravit kontakt</h1>
+        <h1 className="mb-[16px] text-[22px] font-[700]">Upravit kontakt</h1>
         <EditInputComponent
           label="Celé jméno"
           onInputChange={(e) => {
