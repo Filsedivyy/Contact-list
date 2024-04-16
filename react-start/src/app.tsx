@@ -6,6 +6,8 @@ import EmptyContactPage from "./pages/EmptyContactPage";
 import LoadingComponent from "./components/Loading";
 import ErrorPage from "./pages/ErrorPage";
 
+// pokud přidám kontakt, neseřadí se podle řazení
+
 export interface ContactFragment {
   id: number;
   name: string;
@@ -88,6 +90,10 @@ const App = () => {
     }
     setSorted(!sorted);
   }
+  function resetSort() {
+    setSorted(false);
+    setContacts([...contacts].sort((a, b) => a.id - b.id));
+  }
 
   return (
     <div className="flex">
@@ -98,7 +104,7 @@ const App = () => {
             onClick={() => {
               cancelFunc();
               setInputValue("");
-              toggleSort(); //upravit aby to se to vzdy vypnulo
+              resetSort();
             }}
           >
             Kontakty
