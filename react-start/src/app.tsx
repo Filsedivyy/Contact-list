@@ -63,8 +63,9 @@ const App = () => {
       method: "DELETE",
     });
 
-    const response = await fetchContacts();
-    if (!response || response.length === 0) {
+    await fetchContacts();
+
+    if (!sortedContacts() || sortedContacts().length === 0) {
       navigate("/welcome");
     } else {
       navigate(`/${sortedContacts()[0].id}`);
