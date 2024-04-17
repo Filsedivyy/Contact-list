@@ -12,9 +12,11 @@ const AddNewContact: FC<AddNewContactProps> = ({
   setActiveContactIdFunc,
   cancelFunc,
 }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -56,31 +58,35 @@ const AddNewContact: FC<AddNewContactProps> = ({
   }
 
   function handleClick() {
+    const { name, email, phone } = formData;
+    let errorCount = 0;
     if (name.length == 0 || !name.trim().includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
+      errorCount += 1;
     }
     if (email.length == 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
+      errorCount += 1;
     }
     if (phone.length === 0 || !phoneNumRegex.test(phone)) {
       setPhoneError("Zadejte tel. číslo");
+      errorCount += 1;
     }
-    if (
-      name.length == 0 ||
-      !name.trim().includes(" ") ||
-      email.length == 0 ||
-      !email.includes("@") ||
-      phone.length == 0 ||
-      !phoneNumRegex.test(phone)
-    ) {
+    if (errorCount > 0) {
       setFetchState("Chyba odeslání");
       setTimeout(() => {
         setFetchState("Přidat kontakt");
       }, 1500);
       return;
-    } else {
-      addContactToDB(name.trim(), email.trim(), Number(phone));
     }
+
+    addContactToDB(name.trim(), email.trim(), Number(phone)); //ošetřit inputValue
+  }
+
+  function setForm(e) {
+    setFormData((prevData) => {
+      return { ...prevData, [e.target.id]: e.target.value };
+    });
   }
 
   return (
@@ -100,30 +106,33 @@ const AddNewContact: FC<AddNewContactProps> = ({
           Přidat kontakt
         </h1>
         <AddValueInput
-          inputValue={name}
+          inputValue={formData.name}
           onInputChange={(e) => {
-            setName(e.target.value);
+            setForm(e);
             setNameError("");
           }}
-          name="Celé jméno"
+          id="name"
+          label="Celé jméno"
           error={nameError}
         />
         <AddValueInput
-          inputValue={email}
+          inputValue={formData.email}
           onInputChange={(e) => {
-            setEmail(e.target.value);
+            setForm(e);
             setEmailError("");
           }}
-          name="Email"
+          id="email"
+          label="Email"
           error={emailError}
         />
         <AddValueInput
-          inputValue={phone}
+          inputValue={formData.phone}
           onInputChange={(e) => {
-            setPhone(e.target.value);
+            setForm(e);
             setPhoneError("");
           }}
-          name="Telefon"
+          id="phone"
+          label="Telefon"
           error={phoneError}
         />
         <button

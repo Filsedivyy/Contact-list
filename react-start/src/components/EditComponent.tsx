@@ -2,17 +2,21 @@ import EditInputComponent from "./EditInputComponent";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ContactInfo } from "../app";
+
 interface EditComponentProps {
   contact: ContactInfo;
   taskHandler: () => void;
 }
+
 const EditComponent: React.FC<EditComponentProps> = ({
   contact,
   taskHandler,
 }) => {
-  const [name, setName] = useState(contact.name);
-  const [email, setEmail] = useState(contact.email);
-  const [phone, setPhone] = useState(contact.phone);
+  const [formData, setFormData] = useState({
+    name: contact.name,
+    email: contact.email,
+    phone: contact.phone,
+  });
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -58,26 +62,30 @@ const EditComponent: React.FC<EditComponentProps> = ({
   }
 
   function saveEdit() {
-    if (name.length == 0 || !name.includes(" ")) {
+    const { name, email, phone } = formData;
+    let errorCounter = 0;
+    if (name.length === 0 || !name.includes(" ")) {
       setNameError("Zadejte jméno kontaktu");
+      errorCounter += 1;
     }
     if (email.length === 0 || !email.includes("@")) {
       setEmailError("Zadejte email");
+      errorCounter += 1;
     }
     if (phone.length === 0 || !phoneNumRegex.test(phone)) {
       setPhoneError("Zadejte telefonní číslo");
+      errorCounter += 1;
     }
-    if (
-      name.length == 0 ||
-      !name.includes(" ") ||
-      email.length == 0 ||
-      !email.includes("@") ||
-      phone.length == 0 ||
-      !phoneNumRegex.test(phone)
-    ) {
-    } else {
-      editContact(name, email, Number(phone), contact.id);
+    if (errorCounter > 0) {
+      return;
     }
+    editContact(name, email, Number(phone), contact.id);
+  }
+
+  function setForm(e) {
+    setFormData((prevData) => {
+      return { ...prevData, [e.target.id]: e.target.value };
+    });
   }
 
   return (
@@ -95,41 +103,44 @@ const EditComponent: React.FC<EditComponentProps> = ({
         <EditInputComponent
           label="Celé jméno"
           onInputChange={(e) => {
-            setName(e.target.value);
+            setForm(e);
             setNameError("");
           }}
-          value={name}
+          value={formData.name}
           error={nameError}
           clearInput={() => {
-            setName("");
+            setForm({ target: { id: "name", value: "" } });
           }}
+          id="name"
         />
         <EditInputComponent
           label="Email"
           onInputChange={(e) => {
-            setEmail(e.target.value);
+            setForm(e);
             setEmailError("");
           }}
-          value={email}
+          value={formData.email}
           error={emailError}
           clearInput={() => {
-            setEmail("");
+            setForm({ target: { id: "email", value: "" } });
           }}
+          id="email"
         />
         <EditInputComponent
           label="Telefon"
           onInputChange={(e) => {
-            setPhone(e.target.value);
+            setForm(e);
             setPhoneError("");
           }}
-          value={phone}
+          value={formData.phone}
           error={phoneError}
           clearInput={() => {
-            setPhone("");
+            setForm({ target: { id: "phone", value: "" } });
           }}
+          id="phone"
         />
         <button
-          className=" flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white  hover:bg-[#6ef573] active:bg-[#34cc39]"
+          className="flex items-center justify-center mt-[8px] h-[56px] bg-[#5DD661] rounded-[16px] text-white hover:bg-[#6ef573] active:bg-[#34cc39]"
           onClick={saveEdit}
         >
           {fetchError}

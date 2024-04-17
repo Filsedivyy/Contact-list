@@ -1,7 +1,8 @@
 import React from "react";
 
 interface AddValueInputProps {
-  name: string;
+  label: string;
+  id: string;
   error: string;
   inputValue: string;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -10,20 +11,24 @@ interface AddValueInputProps {
 const AddValueInput: React.FC<AddValueInputProps> = ({
   inputValue,
   onInputChange,
+  id,
   error,
-  name,
+  label,
 }) => {
   return (
     <div className="w-full flex flex-col gap-[8px]">
-      <p className="text-[14px] font-[700]">{name}</p>
+      <label htmlFor={id} className="text-[14px] font-[700]">
+        {label}
+      </label>
       <input
         className={` h-[48px] px-[16px] py-[14px] rounded-[14px] border-[1px] border-solid ${
           error ? "border-[2px] border-red-500" : "border-rgb(227, 227, 227)"
         } focus: outline-1 outline-[#5DD661]`}
         type="text"
+        id={id}
         value={inputValue}
         onChange={onInputChange}
-        placeholder={name}
+        placeholder={label}
       />
       {error && (
         <p className="opacity-100 text-red-500 flex items-center gap-[6px]">

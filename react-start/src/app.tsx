@@ -6,9 +6,6 @@ import EmptyContactPage from "./pages/EmptyContactPage";
 import LoadingComponent from "./components/Loading";
 import ErrorPage from "./pages/ErrorPage";
 
-//nastavit minwidth-950px
-//importovat font
-
 export interface ContactFragment {
   id: number;
   name: string;
@@ -30,6 +27,15 @@ const App = () => {
   const [location, navigate] = useLocation();
   const [sorted, setSorted] = useState(false);
 
+  function sortedContacts() {
+    const contactsSorted = [...contacts];
+    if (sorted) {
+      return contactsSorted.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      return contactsSorted.sort((a, b) => a.id - b.id);
+    }
+  }
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
   }
@@ -38,21 +44,11 @@ const App = () => {
     fetchContacts();
   }, []);
 
-  useEffect(() => {
-    fetchContacts();
-  }, [sorted]);
-
   async function fetchContacts(): Promise<ContactFragment[]> {
     const response = await fetch("http://localhost:7070/contact/id/name", {
       method: "GET",
     });
     const data: ContactInfo[] = await response.json();
-
-    if (sorted) {
-      data.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
-      data.sort((a, b) => a.id - b.id);
-    }
     setContacts(data);
     setIsLoading(false);
     return data;
@@ -71,7 +67,7 @@ const App = () => {
     if (!response || response.length === 0) {
       navigate("/welcome");
     } else {
-      navigate(`/${response[0].id}`);
+      navigate(`/${sortedContacts()[0].id}`);
     }
   }
 
@@ -80,7 +76,7 @@ const App = () => {
       navigate("/");
     } else {
       if (filterInputValue === "") {
-        navigate(`/${contacts[0].id}`);
+        navigate(`/${sortedContacts()[0].id}`);
       } else {
         const filteredContact = contacts.find((contact) =>
           contact.name.toLowerCase().includes(filterInputValue.toLowerCase())
@@ -148,8 +144,8 @@ const App = () => {
           </div>
         ) : (
           <ul>
-            {contacts
-              .filter(
+            {sortedContacts()
+              ?.filter(
                 (contactFragment: { name: string }) =>
                   filterInputValue.length === 0 ||
                   contactFragment.name
