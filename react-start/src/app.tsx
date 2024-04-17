@@ -99,7 +99,7 @@ const App = () => {
             onClick={() => {
               setInputValue("");
               setSorted(false);
-              cancelFunc();
+              cancelFunc(); //fixnout
             }}
           >
             Kontakty
